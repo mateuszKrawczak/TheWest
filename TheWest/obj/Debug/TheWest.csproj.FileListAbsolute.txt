@@ -1,0 +1,15 @@
+C:\Users\Omen\source\repos\TheWest\TheWest\bin\Debug\TheWest.exe.config
+C:\Users\Omen\source\repos\TheWest\TheWest\bin\Debug\TheWest.exe
+C:\Users\Omen\source\repos\TheWest\TheWest\bin\Debug\TheWest.pdb
+C:\Users\Omen\source\repos\TheWest\TheWest\obj\Debug\TheWest.csprojAssemblyReference.cache
+C:\Users\Omen\source\repos\TheWest\TheWest\obj\Debug\TheWest.Form1.resources
+C:\Users\Omen\source\repos\TheWest\TheWest\obj\Debug\TheWest.Properties.Resources.resources
+C:\Users\Omen\source\repos\TheWest\TheWest\obj\Debug\TheWest.csproj.GenerateResource.cache
+C:\Users\Omen\source\repos\TheWest\TheWest\obj\Debug\TheWest.csproj.CoreCompileInputs.cache
+C:\Users\Omen\source\repos\TheWest\TheWest\obj\Debug\TheWest.exe
+C:\Users\Omen\source\repos\TheWest\TheWest\obj\Debug\TheWest.pdb
+C:\Users\Omen\source\repos\TheWest\TheWest\bin\Debug\Interop.WMPLib.dll
+C:\Users\Omen\source\repos\TheWest\TheWest\bin\Debug\AxInterop.WMPLib.dll
+C:\Users\Omen\source\repos\TheWest\TheWest\obj\Debug\Interop.WMPLib.dll
+C:\Users\Omen\source\repos\TheWest\TheWest\obj\Debug\AxInterop.WMPLib.dll
+C:\Users\Omen\source\repos\TheWest\TheWest\obj\Debug\TheWest.csproj.ResolveComReference.cache

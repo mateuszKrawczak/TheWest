@@ -118,17 +118,65 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="saloonTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\saloonTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="johnTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\johnTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="woodTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\woodTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arthurTWS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arthurTWS1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="johnTWS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\johnTWS1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fatJoe" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fatJoe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="homeTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\homeTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="moneyS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\moneyS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sheriffimgTW" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sheriffimgTW.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="churchTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\churchTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sheriffimgTW2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sheriffimgTW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mapTW" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>mapTW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="MindS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\MindS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="sheriffimgTW3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\sheriffimgTW2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="fatJoe2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\fatJoe2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="storeTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\storeTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sheriffimgTWSKALA" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sheriffimgTWSKALA.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="backgroundTW" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>backgroundTW.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="ColtS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\ColtS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="arthurTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\arthurTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="theWest" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>theWest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="ElisabethTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ElisabethTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="bankTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\bankTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -136,67 +184,22 @@
   <data name="sheriffimgTW1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\sheriffimgTW1.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="mapTW" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>mapTW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="storeTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\storeTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="fatJoe" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fatJoe.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="warehouseTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\warehouseTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="fatJoe2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\fatJoe2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="theWest" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>theWest.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="arthurTWS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\arthurTWS1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="western-background" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\western-background.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="johnTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\johnTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sheriffimgTW3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sheriffimgTW2.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="fatJoe1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\fatJoe1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="ElisabethTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ElisabethTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="warehouseTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\warehouseTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="moneyS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\moneyS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="backgroundTW" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>backgroundTW.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="sheriffimgTW2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sheriffimgTW.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="saloonTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\saloonTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="arthurTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\arthurTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="woodTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\woodTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="churchTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\churchTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="MindS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\MindS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sheriffimgTW" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\sheriffimgTW.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="homeTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\homeTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="johnTWS1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\johnTWS1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="crossTWS" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\crossTWS.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

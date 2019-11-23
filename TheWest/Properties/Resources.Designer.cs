@@ -123,6 +123,16 @@ namespace TheWest.Properties {
         /// <summary>
         ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap crossTWS {
+            get {
+                object obj = ResourceManager.GetObject("crossTWS", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Wyszukuje zlokalizowany zasób typu System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap ElisabethTWS {
             get {
                 object obj = ResourceManager.GetObject("ElisabethTWS", resourceCulture);

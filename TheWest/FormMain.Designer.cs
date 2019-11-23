@@ -1,6 +1,6 @@
 ﻿namespace TheWest
 {
-    partial class Form1
+    partial class FormMain
     {
         /// <summary>
         /// Wymagana zmienna projektanta.
@@ -40,9 +40,6 @@
             this.button2_Save = new System.Windows.Forms.Button();
             this.button3_Load = new System.Windows.Forms.Button();
             this.pictureBox_Arthur = new System.Windows.Forms.PictureBox();
-            this.pictureBox_Mary = new System.Windows.Forms.PictureBox();
-            this.pictureBox_FatJoe = new System.Windows.Forms.PictureBox();
-            this.pictureBox_LuckyLuke = new System.Windows.Forms.PictureBox();
             this.label_Mind_Stat = new System.Windows.Forms.Label();
             this.label_Aim_Stat = new System.Windows.Forms.Label();
             this.pictureBox_Mind = new System.Windows.Forms.PictureBox();
@@ -63,7 +60,6 @@
             this.buttonInvest = new System.Windows.Forms.Button();
             this.buttonPray = new System.Windows.Forms.Button();
             this.buttonBuyWarehouse = new System.Windows.Forms.Button();
-            this.buttonUpgradeHome = new System.Windows.Forms.Button();
             this.pictureBox_Store = new System.Windows.Forms.PictureBox();
             this.pictureBox_Saloon = new System.Windows.Forms.PictureBox();
             this.pictureBox_Wood = new System.Windows.Forms.PictureBox();
@@ -73,9 +69,7 @@
             this.pictureBox_Home = new System.Windows.Forms.PictureBox();
             this.pictureBox_Money = new System.Windows.Forms.PictureBox();
             this.label_Dollar = new System.Windows.Forms.Label();
-            this.toolTip_Luck = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTip_Mary = new System.Windows.Forms.ToolTip(this.components);
-            this.toolTip_Joe = new System.Windows.Forms.ToolTip(this.components);
+            this.toolTipPerson = new System.Windows.Forms.ToolTip(this.components);
             this.label_Life_Stat = new System.Windows.Forms.Label();
             this.label_Energy_Stat = new System.Windows.Forms.Label();
             this.progressBar_Activity = new System.Windows.Forms.ProgressBar();
@@ -88,14 +82,21 @@
             this.label_Day_Stat = new System.Windows.Forms.Label();
             this.label_Hours = new System.Windows.Forms.Label();
             this.label_Hour_Stat = new System.Windows.Forms.Label();
-            this.toolTip_Buildings = new System.Windows.Forms.ToolTip(this.components);
-            this.timer = new System.Windows.Forms.Timer(this.components);
+            this.toolTipBuildings = new System.Windows.Forms.ToolTip(this.components);
+            this.timerGlobal = new System.Windows.Forms.Timer(this.components);
+            this.timerMusic = new System.Windows.Forms.Timer(this.components);
+            this.pictureBoxMaryCross = new System.Windows.Forms.PictureBox();
+            this.panelJoe = new System.Windows.Forms.Panel();
+            this.buttonJoeFight = new System.Windows.Forms.Button();
+            this.pictureBoxJoeCross = new System.Windows.Forms.PictureBox();
+            this.panelMary = new System.Windows.Forms.Panel();
+            this.buttonFightMary = new System.Windows.Forms.Button();
+            this.panelLuke = new System.Windows.Forms.Panel();
+            this.buttonFightLuke = new System.Windows.Forms.Button();
+            this.pictureBoxLukeCross = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_TW)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Star)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Arthur)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Mary)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_FatJoe)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_LuckyLuke)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Mind)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Gun)).BeginInit();
             this.panel.SuspendLayout();
@@ -107,6 +108,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Church)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Home)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Money)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMaryCross)).BeginInit();
+            this.panelJoe.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJoeCross)).BeginInit();
+            this.panelMary.SuspendLayout();
+            this.panelLuke.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLukeCross)).BeginInit();
             this.SuspendLayout();
             // 
             // pictureBox_TW
@@ -136,7 +143,7 @@
             // 
             this.label_Money.AutoSize = true;
             this.label_Money.Font = new System.Drawing.Font("Stencil", 12F);
-            this.label_Money.Location = new System.Drawing.Point(57, 263);
+            this.label_Money.Location = new System.Drawing.Point(57, 244);
             this.label_Money.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_Money.Name = "label_Money";
             this.label_Money.Size = new System.Drawing.Size(82, 24);
@@ -147,7 +154,7 @@
             // 
             this.label_Mind.AutoSize = true;
             this.label_Mind.Font = new System.Drawing.Font("Stencil", 12F);
-            this.label_Mind.Location = new System.Drawing.Point(73, 299);
+            this.label_Mind.Location = new System.Drawing.Point(73, 280);
             this.label_Mind.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_Mind.Name = "label_Mind";
             this.label_Mind.Size = new System.Drawing.Size(66, 24);
@@ -158,7 +165,7 @@
             // 
             this.label_Shooting.AutoSize = true;
             this.label_Shooting.Font = new System.Drawing.Font("Stencil", 12F);
-            this.label_Shooting.Location = new System.Drawing.Point(87, 333);
+            this.label_Shooting.Location = new System.Drawing.Point(87, 324);
             this.label_Shooting.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_Shooting.Name = "label_Shooting";
             this.label_Shooting.Size = new System.Drawing.Size(52, 24);
@@ -180,7 +187,7 @@
             // 
             this.label_Money_Stat.AutoSize = true;
             this.label_Money_Stat.Font = new System.Drawing.Font("Stencil", 12F);
-            this.label_Money_Stat.Location = new System.Drawing.Point(153, 263);
+            this.label_Money_Stat.Location = new System.Drawing.Point(147, 244);
             this.label_Money_Stat.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_Money_Stat.Name = "label_Money_Stat";
             this.label_Money_Stat.Size = new System.Drawing.Size(44, 24);
@@ -229,49 +236,11 @@
             this.pictureBox_Arthur.TabIndex = 11;
             this.pictureBox_Arthur.TabStop = false;
             // 
-            // pictureBox_Mary
-            // 
-            this.pictureBox_Mary.Image = global::TheWest.Properties.Resources.ElisabethTWS;
-            this.pictureBox_Mary.Location = new System.Drawing.Point(365, 468);
-            this.pictureBox_Mary.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox_Mary.Name = "pictureBox_Mary";
-            this.pictureBox_Mary.Size = new System.Drawing.Size(167, 154);
-            this.pictureBox_Mary.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox_Mary.TabIndex = 12;
-            this.pictureBox_Mary.TabStop = false;
-            this.toolTip_Mary.SetToolTip(this.pictureBox_Mary, "Level: 3\r\nShooting: 30\r\nBloody it is not only a nickname. She is very dangerous a" +
-        "nd also pretty. Biggest love of Luke.");
-            // 
-            // pictureBox_FatJoe
-            // 
-            this.pictureBox_FatJoe.Image = global::TheWest.Properties.Resources.fatJoe2;
-            this.pictureBox_FatJoe.Location = new System.Drawing.Point(180, 467);
-            this.pictureBox_FatJoe.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox_FatJoe.Name = "pictureBox_FatJoe";
-            this.pictureBox_FatJoe.Size = new System.Drawing.Size(167, 154);
-            this.pictureBox_FatJoe.TabIndex = 13;
-            this.pictureBox_FatJoe.TabStop = false;
-            this.toolTip_Joe.SetToolTip(this.pictureBox_FatJoe, "Level: 5\r\nShooting: 60\r\nHe is the right hand of Luke. His fabolous gun is well kn" +
-        "own in Texas.");
-            // 
-            // pictureBox_LuckyLuke
-            // 
-            this.pictureBox_LuckyLuke.Image = global::TheWest.Properties.Resources.johnTWS1;
-            this.pictureBox_LuckyLuke.Location = new System.Drawing.Point(0, 468);
-            this.pictureBox_LuckyLuke.Margin = new System.Windows.Forms.Padding(4);
-            this.pictureBox_LuckyLuke.Name = "pictureBox_LuckyLuke";
-            this.pictureBox_LuckyLuke.Size = new System.Drawing.Size(167, 154);
-            this.pictureBox_LuckyLuke.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox_LuckyLuke.TabIndex = 14;
-            this.pictureBox_LuckyLuke.TabStop = false;
-            this.toolTip_Luck.SetToolTip(this.pictureBox_LuckyLuke, "Level: Boss\r\nShooting: 95\r\nLuke is very powerful person. He is the most dangerous" +
-        " person in the wild west.");
-            // 
             // label_Mind_Stat
             // 
             this.label_Mind_Stat.AutoSize = true;
             this.label_Mind_Stat.Font = new System.Drawing.Font("Stencil", 12F);
-            this.label_Mind_Stat.Location = new System.Drawing.Point(164, 299);
+            this.label_Mind_Stat.Location = new System.Drawing.Point(151, 280);
             this.label_Mind_Stat.Name = "label_Mind_Stat";
             this.label_Mind_Stat.Size = new System.Drawing.Size(22, 24);
             this.label_Mind_Stat.TabIndex = 15;
@@ -281,7 +250,7 @@
             // 
             this.label_Aim_Stat.AutoSize = true;
             this.label_Aim_Stat.Font = new System.Drawing.Font("Stencil", 12F);
-            this.label_Aim_Stat.Location = new System.Drawing.Point(164, 333);
+            this.label_Aim_Stat.Location = new System.Drawing.Point(151, 324);
             this.label_Aim_Stat.Name = "label_Aim_Stat";
             this.label_Aim_Stat.Size = new System.Drawing.Size(22, 24);
             this.label_Aim_Stat.TabIndex = 16;
@@ -290,7 +259,7 @@
             // pictureBox_Mind
             // 
             this.pictureBox_Mind.Image = global::TheWest.Properties.Resources.MindS;
-            this.pictureBox_Mind.Location = new System.Drawing.Point(12, 292);
+            this.pictureBox_Mind.Location = new System.Drawing.Point(13, 280);
             this.pictureBox_Mind.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_Mind.Name = "pictureBox_Mind";
             this.pictureBox_Mind.Size = new System.Drawing.Size(47, 31);
@@ -301,7 +270,7 @@
             // pictureBox_Gun
             // 
             this.pictureBox_Gun.Image = global::TheWest.Properties.Resources.ColtS;
-            this.pictureBox_Gun.Location = new System.Drawing.Point(12, 326);
+            this.pictureBox_Gun.Location = new System.Drawing.Point(13, 315);
             this.pictureBox_Gun.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pictureBox_Gun.Name = "pictureBox_Gun";
             this.pictureBox_Gun.Size = new System.Drawing.Size(47, 43);
@@ -323,7 +292,7 @@
             // 
             this.label_Joe.AutoSize = true;
             this.label_Joe.Font = new System.Drawing.Font("Stencil", 16F);
-            this.label_Joe.Location = new System.Drawing.Point(200, 432);
+            this.label_Joe.Location = new System.Drawing.Point(209, 433);
             this.label_Joe.Name = "label_Joe";
             this.label_Joe.Size = new System.Drawing.Size(117, 32);
             this.label_Joe.TabIndex = 21;
@@ -343,7 +312,7 @@
             // 
             this.label_Life.AutoSize = true;
             this.label_Life.Font = new System.Drawing.Font("Stencil", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_Life.Location = new System.Drawing.Point(74, 87);
+            this.label_Life.Location = new System.Drawing.Point(75, 87);
             this.label_Life.Name = "label_Life";
             this.label_Life.Size = new System.Drawing.Size(82, 33);
             this.label_Life.TabIndex = 23;
@@ -381,7 +350,6 @@
             this.panel.Controls.Add(this.buttonInvest);
             this.panel.Controls.Add(this.buttonPray);
             this.panel.Controls.Add(this.buttonBuyWarehouse);
-            this.panel.Controls.Add(this.buttonUpgradeHome);
             this.panel.Controls.Add(this.pictureBox_Store);
             this.panel.Controls.Add(this.pictureBox_Saloon);
             this.panel.Controls.Add(this.pictureBox_Wood);
@@ -399,29 +367,34 @@
             // 
             this.buttonUpgradeWarehouse.Font = new System.Drawing.Font("Stencil", 6F);
             this.buttonUpgradeWarehouse.Location = new System.Drawing.Point(176, 73);
+            this.buttonUpgradeWarehouse.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonUpgradeWarehouse.Name = "buttonUpgradeWarehouse";
-            this.buttonUpgradeWarehouse.Size = new System.Drawing.Size(70, 20);
+            this.buttonUpgradeWarehouse.Size = new System.Drawing.Size(69, 20);
             this.buttonUpgradeWarehouse.TabIndex = 17;
             this.buttonUpgradeWarehouse.Text = "Upgrade";
             this.buttonUpgradeWarehouse.UseVisualStyleBackColor = true;
             this.buttonUpgradeWarehouse.Visible = false;
+            this.buttonUpgradeWarehouse.Click += new System.EventHandler(this.buttonUpgradeWarehouse_Click);
             // 
             // buttonWorkWood
             // 
             this.buttonWorkWood.Font = new System.Drawing.Font("Stencil", 6F);
             this.buttonWorkWood.Location = new System.Drawing.Point(823, 73);
+            this.buttonWorkWood.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonWorkWood.Name = "buttonWorkWood";
-            this.buttonWorkWood.Size = new System.Drawing.Size(70, 20);
+            this.buttonWorkWood.Size = new System.Drawing.Size(69, 20);
             this.buttonWorkWood.TabIndex = 16;
             this.buttonWorkWood.Text = "Work";
             this.buttonWorkWood.UseVisualStyleBackColor = true;
+            this.buttonWorkWood.Click += new System.EventHandler(this.buttonWorkWood_Click);
             // 
             // buttonRestHome
             // 
             this.buttonRestHome.Font = new System.Drawing.Font("Stencil", 6F);
             this.buttonRestHome.Location = new System.Drawing.Point(884, 385);
+            this.buttonRestHome.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonRestHome.Name = "buttonRestHome";
-            this.buttonRestHome.Size = new System.Drawing.Size(70, 20);
+            this.buttonRestHome.Size = new System.Drawing.Size(69, 20);
             this.buttonRestHome.TabIndex = 15;
             this.buttonRestHome.Text = "Rest";
             this.buttonRestHome.UseVisualStyleBackColor = true;
@@ -431,8 +404,9 @@
             // 
             this.buttonReadBook.Font = new System.Drawing.Font("Stencil", 6F);
             this.buttonReadBook.Location = new System.Drawing.Point(884, 356);
+            this.buttonReadBook.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonReadBook.Name = "buttonReadBook";
-            this.buttonReadBook.Size = new System.Drawing.Size(70, 20);
+            this.buttonReadBook.Size = new System.Drawing.Size(69, 20);
             this.buttonReadBook.TabIndex = 14;
             this.buttonReadBook.Text = "Read";
             this.buttonReadBook.UseVisualStyleBackColor = true;
@@ -441,85 +415,87 @@
             // buttonPoker
             // 
             this.buttonPoker.Font = new System.Drawing.Font("Stencil", 6F);
-            this.buttonPoker.Location = new System.Drawing.Point(586, 356);
+            this.buttonPoker.Location = new System.Drawing.Point(587, 356);
+            this.buttonPoker.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonPoker.Name = "buttonPoker";
-            this.buttonPoker.Size = new System.Drawing.Size(70, 20);
+            this.buttonPoker.Size = new System.Drawing.Size(69, 20);
             this.buttonPoker.TabIndex = 13;
             this.buttonPoker.Text = "Poker";
             this.buttonPoker.UseVisualStyleBackColor = true;
+            this.buttonPoker.Click += new System.EventHandler(this.buttonPoker_Click);
             // 
             // buttonUpgradeStore
             // 
             this.buttonUpgradeStore.Font = new System.Drawing.Font("Stencil", 6F);
             this.buttonUpgradeStore.Location = new System.Drawing.Point(328, 385);
+            this.buttonUpgradeStore.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonUpgradeStore.Name = "buttonUpgradeStore";
-            this.buttonUpgradeStore.Size = new System.Drawing.Size(70, 20);
+            this.buttonUpgradeStore.Size = new System.Drawing.Size(69, 20);
             this.buttonUpgradeStore.TabIndex = 12;
             this.buttonUpgradeStore.Text = "Upgrade";
             this.buttonUpgradeStore.UseVisualStyleBackColor = true;
+            this.buttonUpgradeStore.Click += new System.EventHandler(this.buttonUpgradeStore_Click);
             // 
             // buttonInvest
             // 
             this.buttonInvest.Font = new System.Drawing.Font("Stencil", 6F);
             this.buttonInvest.Location = new System.Drawing.Point(315, 272);
+            this.buttonInvest.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonInvest.Name = "buttonInvest";
-            this.buttonInvest.Size = new System.Drawing.Size(70, 20);
+            this.buttonInvest.Size = new System.Drawing.Size(69, 20);
             this.buttonInvest.TabIndex = 11;
             this.buttonInvest.Text = "Invest";
             this.buttonInvest.UseVisualStyleBackColor = true;
+            this.buttonInvest.Click += new System.EventHandler(this.buttonInvest_Click);
             // 
             // buttonPray
             // 
             this.buttonPray.Font = new System.Drawing.Font("Stencil", 6F);
-            this.buttonPray.Location = new System.Drawing.Point(459, 99);
+            this.buttonPray.Location = new System.Drawing.Point(459, 98);
+            this.buttonPray.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonPray.Name = "buttonPray";
-            this.buttonPray.Size = new System.Drawing.Size(70, 20);
+            this.buttonPray.Size = new System.Drawing.Size(69, 20);
             this.buttonPray.TabIndex = 10;
             this.buttonPray.Text = "Pray";
             this.buttonPray.UseVisualStyleBackColor = true;
+            this.buttonPray.Click += new System.EventHandler(this.buttonPray_Click);
             // 
             // buttonBuyWarehouse
             // 
             this.buttonBuyWarehouse.Font = new System.Drawing.Font("Stencil", 6F);
             this.buttonBuyWarehouse.Location = new System.Drawing.Point(151, 47);
+            this.buttonBuyWarehouse.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonBuyWarehouse.Name = "buttonBuyWarehouse";
-            this.buttonBuyWarehouse.Size = new System.Drawing.Size(70, 20);
+            this.buttonBuyWarehouse.Size = new System.Drawing.Size(69, 20);
             this.buttonBuyWarehouse.TabIndex = 9;
             this.buttonBuyWarehouse.Text = "Buy";
             this.buttonBuyWarehouse.UseVisualStyleBackColor = true;
-            // 
-            // buttonUpgradeHome
-            // 
-            this.buttonUpgradeHome.Font = new System.Drawing.Font("Stencil", 6F);
-            this.buttonUpgradeHome.Location = new System.Drawing.Point(884, 330);
-            this.buttonUpgradeHome.Name = "buttonUpgradeHome";
-            this.buttonUpgradeHome.Size = new System.Drawing.Size(70, 20);
-            this.buttonUpgradeHome.TabIndex = 7;
-            this.buttonUpgradeHome.Text = "Upgrade";
-            this.buttonUpgradeHome.UseVisualStyleBackColor = true;
-            this.buttonUpgradeHome.Click += new System.EventHandler(this.buttonUpgradeHome_Click);
+            this.buttonBuyWarehouse.Click += new System.EventHandler(this.buttonBuyWarehouse_Click);
             // 
             // pictureBox_Store
             // 
             this.pictureBox_Store.Image = global::TheWest.Properties.Resources.storeTWS;
-            this.pictureBox_Store.Location = new System.Drawing.Point(382, 315);
+            this.pictureBox_Store.Location = new System.Drawing.Point(381, 315);
             this.pictureBox_Store.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox_Store.Name = "pictureBox_Store";
             this.pictureBox_Store.Size = new System.Drawing.Size(125, 126);
             this.pictureBox_Store.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_Store.TabIndex = 6;
             this.pictureBox_Store.TabStop = false;
+            this.toolTipBuildings.SetToolTip(this.pictureBox_Store, "Store\r\nNote: You can upgrade your aim here\r\nLevel 2: 25 aim 150$\r\nLevel 3: 45 aim" +
+        " 300$ \r\nLevel 4: 65 aim 450$\r\nLevel 5: 85 aim 6000$\r\nLevel 6: 100 aim 750$");
             // 
             // pictureBox_Saloon
             // 
             this.pictureBox_Saloon.Image = global::TheWest.Properties.Resources.saloonTWS;
-            this.pictureBox_Saloon.Location = new System.Drawing.Point(550, 233);
+            this.pictureBox_Saloon.Location = new System.Drawing.Point(549, 233);
             this.pictureBox_Saloon.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox_Saloon.Name = "pictureBox_Saloon";
             this.pictureBox_Saloon.Size = new System.Drawing.Size(145, 145);
             this.pictureBox_Saloon.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox_Saloon.TabIndex = 5;
             this.pictureBox_Saloon.TabStop = false;
+            this.toolTipBuildings.SetToolTip(this.pictureBox_Saloon, "50% for win money, you can try your luck!");
             // 
             // pictureBox_Wood
             // 
@@ -531,6 +507,7 @@
             this.pictureBox_Wood.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_Wood.TabIndex = 4;
             this.pictureBox_Wood.TabStop = false;
+            this.toolTipBuildings.SetToolTip(this.pictureBox_Wood, "20$ per hour. It\'s not that much but it\'s a honest work");
             // 
             // pictureBox_Warehouse
             // 
@@ -542,46 +519,51 @@
             this.pictureBox_Warehouse.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_Warehouse.TabIndex = 3;
             this.pictureBox_Warehouse.TabStop = false;
+            this.toolTipBuildings.SetToolTip(this.pictureBox_Warehouse, "Warehouse\r\nYou can earn money without working.\r\nCost of buy: 1000$\r\nLevel 2: 100$" +
+        " 10$/hour\r\nLevel 3: 200$ 20$/hour\r\nLevel 4: 300$ 30$/hour\r\nLevel 5: 400$ 40$/hou" +
+        "r");
             // 
             // pictureBox_Bank
             // 
             this.pictureBox_Bank.Image = global::TheWest.Properties.Resources.bankTWS;
-            this.pictureBox_Bank.Location = new System.Drawing.Point(369, 184);
+            this.pictureBox_Bank.Location = new System.Drawing.Point(369, 185);
             this.pictureBox_Bank.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox_Bank.Name = "pictureBox_Bank";
             this.pictureBox_Bank.Size = new System.Drawing.Size(125, 123);
             this.pictureBox_Bank.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_Bank.TabIndex = 2;
             this.pictureBox_Bank.TabStop = false;
-            this.toolTip_Buildings.SetToolTip(this.pictureBox_Bank, "Profit per week: 20% of invested money\r\n");
+            this.toolTipBuildings.SetToolTip(this.pictureBox_Bank, "Double money after 4 days\r\n\r\n");
             // 
             // pictureBox_Church
             // 
             this.pictureBox_Church.Image = global::TheWest.Properties.Resources.churchTWS;
-            this.pictureBox_Church.Location = new System.Drawing.Point(512, 83);
+            this.pictureBox_Church.Location = new System.Drawing.Point(512, 82);
             this.pictureBox_Church.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox_Church.Name = "pictureBox_Church";
             this.pictureBox_Church.Size = new System.Drawing.Size(111, 130);
             this.pictureBox_Church.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_Church.TabIndex = 1;
             this.pictureBox_Church.TabStop = false;
+            this.toolTipBuildings.SetToolTip(this.pictureBox_Church, "IF you want to pray your energy will be 50 points higher");
             // 
             // pictureBox_Home
             // 
             this.pictureBox_Home.Image = global::TheWest.Properties.Resources.homeTWS;
-            this.pictureBox_Home.Location = new System.Drawing.Point(728, 307);
+            this.pictureBox_Home.Location = new System.Drawing.Point(728, 306);
             this.pictureBox_Home.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox_Home.Name = "pictureBox_Home";
             this.pictureBox_Home.Size = new System.Drawing.Size(124, 125);
             this.pictureBox_Home.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.pictureBox_Home.TabIndex = 0;
             this.pictureBox_Home.TabStop = false;
-            this.toolTip_Buildings.SetToolTip(this.pictureBox_Home, "This is your home.\r\n");
+            this.toolTipBuildings.SetToolTip(this.pictureBox_Home, "This is your home, you can rest here if you want. Reading can give you +5 to mind" +
+        ". \r\n");
             // 
             // pictureBox_Money
             // 
             this.pictureBox_Money.Image = global::TheWest.Properties.Resources.moneyS;
-            this.pictureBox_Money.Location = new System.Drawing.Point(12, 248);
+            this.pictureBox_Money.Location = new System.Drawing.Point(13, 234);
             this.pictureBox_Money.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox_Money.Name = "pictureBox_Money";
             this.pictureBox_Money.Size = new System.Drawing.Size(47, 43);
@@ -593,7 +575,7 @@
             // 
             this.label_Dollar.AutoSize = true;
             this.label_Dollar.Font = new System.Drawing.Font("Stencil", 12F);
-            this.label_Dollar.Location = new System.Drawing.Point(202, 263);
+            this.label_Dollar.Location = new System.Drawing.Point(206, 244);
             this.label_Dollar.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_Dollar.Name = "label_Dollar";
             this.label_Dollar.Size = new System.Drawing.Size(21, 24);
@@ -605,7 +587,7 @@
             this.label_Life_Stat.AutoSize = true;
             this.label_Life_Stat.Font = new System.Drawing.Font("Stencil", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_Life_Stat.ForeColor = System.Drawing.Color.Red;
-            this.label_Life_Stat.Location = new System.Drawing.Point(162, 87);
+            this.label_Life_Stat.Location = new System.Drawing.Point(163, 87);
             this.label_Life_Stat.Name = "label_Life_Stat";
             this.label_Life_Stat.Size = new System.Drawing.Size(63, 33);
             this.label_Life_Stat.TabIndex = 30;
@@ -616,7 +598,7 @@
             this.label_Energy_Stat.AutoSize = true;
             this.label_Energy_Stat.Font = new System.Drawing.Font("Stencil", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label_Energy_Stat.ForeColor = System.Drawing.Color.Blue;
-            this.label_Energy_Stat.Location = new System.Drawing.Point(162, 132);
+            this.label_Energy_Stat.Location = new System.Drawing.Point(163, 132);
             this.label_Energy_Stat.Name = "label_Energy_Stat";
             this.label_Energy_Stat.Size = new System.Drawing.Size(63, 33);
             this.label_Energy_Stat.TabIndex = 31;
@@ -635,7 +617,7 @@
             // 
             this.label_Wanted.AutoSize = true;
             this.label_Wanted.Font = new System.Drawing.Font("Stencil", 28.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_Wanted.Location = new System.Drawing.Point(10, 371);
+            this.label_Wanted.Location = new System.Drawing.Point(11, 370);
             this.label_Wanted.Name = "label_Wanted";
             this.label_Wanted.Size = new System.Drawing.Size(214, 57);
             this.label_Wanted.TabIndex = 32;
@@ -645,7 +627,7 @@
             // 
             this.label_Work.AutoSize = true;
             this.label_Work.Font = new System.Drawing.Font("Stencil", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_Work.Location = new System.Drawing.Point(243, 345);
+            this.label_Work.Location = new System.Drawing.Point(235, 347);
             this.label_Work.Name = "label_Work";
             this.label_Work.Size = new System.Drawing.Size(104, 24);
             this.label_Work.TabIndex = 33;
@@ -665,7 +647,7 @@
             // 
             this.label_Level.AutoSize = true;
             this.label_Level.Font = new System.Drawing.Font("Stencil", 16F);
-            this.label_Level.Location = new System.Drawing.Point(331, 255);
+            this.label_Level.Location = new System.Drawing.Point(336, 255);
             this.label_Level.Name = "label_Level";
             this.label_Level.Size = new System.Drawing.Size(100, 32);
             this.label_Level.TabIndex = 35;
@@ -685,7 +667,7 @@
             // 
             this.label_Day.AutoSize = true;
             this.label_Day.Font = new System.Drawing.Font("Stencil", 16F);
-            this.label_Day.Location = new System.Drawing.Point(0, 37);
+            this.label_Day.Location = new System.Drawing.Point(5, 38);
             this.label_Day.Name = "label_Day";
             this.label_Day.Size = new System.Drawing.Size(66, 32);
             this.label_Day.TabIndex = 37;
@@ -695,7 +677,7 @@
             // 
             this.label_Day_Stat.AutoSize = true;
             this.label_Day_Stat.Font = new System.Drawing.Font("Stencil", 16F);
-            this.label_Day_Stat.Location = new System.Drawing.Point(85, 38);
+            this.label_Day_Stat.Location = new System.Drawing.Point(77, 38);
             this.label_Day_Stat.Name = "label_Day_Stat";
             this.label_Day_Stat.Size = new System.Drawing.Size(31, 32);
             this.label_Day_Stat.TabIndex = 38;
@@ -715,17 +697,126 @@
             // 
             this.label_Hour_Stat.AutoSize = true;
             this.label_Hour_Stat.Font = new System.Drawing.Font("Stencil", 16F);
-            this.label_Hour_Stat.Location = new System.Drawing.Point(241, 38);
+            this.label_Hour_Stat.Location = new System.Drawing.Point(241, 37);
             this.label_Hour_Stat.Name = "label_Hour_Stat";
             this.label_Hour_Stat.Size = new System.Drawing.Size(31, 32);
             this.label_Hour_Stat.TabIndex = 40;
             this.label_Hour_Stat.Text = "0";
             // 
-            // timer
+            // timerGlobal
             // 
-            this.timer.Tick += new System.EventHandler(this.timer_Tick_1);
+            this.timerGlobal.Tick += new System.EventHandler(this.timer_Tick_1);
             // 
-            // Form1
+            // timerMusic
+            // 
+            this.timerMusic.Tick += new System.EventHandler(this.timerMusic_Tick);
+            // 
+            // pictureBoxMaryCross
+            // 
+            this.pictureBoxMaryCross.Image = global::TheWest.Properties.Resources.crossTWS;
+            this.pictureBoxMaryCross.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxMaryCross.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBoxMaryCross.Name = "pictureBoxMaryCross";
+            this.pictureBoxMaryCross.Size = new System.Drawing.Size(167, 154);
+            this.pictureBoxMaryCross.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBoxMaryCross.TabIndex = 41;
+            this.pictureBoxMaryCross.TabStop = false;
+            this.pictureBoxMaryCross.Visible = false;
+            // 
+            // panelJoe
+            // 
+            this.panelJoe.BackgroundImage = global::TheWest.Properties.Resources.fatJoe2;
+            this.panelJoe.Controls.Add(this.buttonJoeFight);
+            this.panelJoe.Controls.Add(this.pictureBoxJoeCross);
+            this.panelJoe.Location = new System.Drawing.Point(187, 466);
+            this.panelJoe.Margin = new System.Windows.Forms.Padding(4);
+            this.panelJoe.Name = "panelJoe";
+            this.panelJoe.Size = new System.Drawing.Size(167, 154);
+            this.panelJoe.TabIndex = 18;
+            // 
+            // buttonJoeFight
+            // 
+            this.buttonJoeFight.Font = new System.Drawing.Font("Stencil", 8F);
+            this.buttonJoeFight.Location = new System.Drawing.Point(42, 132);
+            this.buttonJoeFight.Name = "buttonJoeFight";
+            this.buttonJoeFight.Size = new System.Drawing.Size(75, 23);
+            this.buttonJoeFight.TabIndex = 41;
+            this.buttonJoeFight.Text = "Fight";
+            this.toolTipPerson.SetToolTip(this.buttonJoeFight, "Fat Joe\r\nNote: Godfather of gang\'s success\r\nAim: 60\r\nPrize 1200 $");
+            this.buttonJoeFight.UseVisualStyleBackColor = true;
+            this.buttonJoeFight.Click += new System.EventHandler(this.buttonJoeFight_Click);
+            // 
+            // pictureBoxJoeCross
+            // 
+            this.pictureBoxJoeCross.Image = global::TheWest.Properties.Resources.crossTWS;
+            this.pictureBoxJoeCross.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxJoeCross.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBoxJoeCross.Name = "pictureBoxJoeCross";
+            this.pictureBoxJoeCross.Size = new System.Drawing.Size(167, 154);
+            this.pictureBoxJoeCross.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxJoeCross.TabIndex = 0;
+            this.pictureBoxJoeCross.TabStop = false;
+            this.pictureBoxJoeCross.Visible = false;
+            // 
+            // panelMary
+            // 
+            this.panelMary.BackgroundImage = global::TheWest.Properties.Resources.ElisabethTWS;
+            this.panelMary.Controls.Add(this.buttonFightMary);
+            this.panelMary.Controls.Add(this.pictureBoxMaryCross);
+            this.panelMary.Location = new System.Drawing.Point(375, 466);
+            this.panelMary.Margin = new System.Windows.Forms.Padding(4);
+            this.panelMary.Name = "panelMary";
+            this.panelMary.Size = new System.Drawing.Size(167, 154);
+            this.panelMary.TabIndex = 19;
+            // 
+            // buttonFightMary
+            // 
+            this.buttonFightMary.Font = new System.Drawing.Font("Stencil", 8F);
+            this.buttonFightMary.Location = new System.Drawing.Point(56, 132);
+            this.buttonFightMary.Name = "buttonFightMary";
+            this.buttonFightMary.Size = new System.Drawing.Size(75, 23);
+            this.buttonFightMary.TabIndex = 42;
+            this.buttonFightMary.Text = "Fight";
+            this.toolTipPerson.SetToolTip(this.buttonFightMary, "Bloody Mary\r\nNote: Deadliest woman of Wild West\r\nAim: 30\r\nPrize 600 $\r\n");
+            this.buttonFightMary.UseVisualStyleBackColor = true;
+            this.buttonFightMary.Click += new System.EventHandler(this.buttonFightMary_Click);
+            // 
+            // panelLuke
+            // 
+            this.panelLuke.BackgroundImage = global::TheWest.Properties.Resources.johnTWS1;
+            this.panelLuke.Controls.Add(this.buttonFightLuke);
+            this.panelLuke.Controls.Add(this.pictureBoxLukeCross);
+            this.panelLuke.Location = new System.Drawing.Point(5, 466);
+            this.panelLuke.Margin = new System.Windows.Forms.Padding(4);
+            this.panelLuke.Name = "panelLuke";
+            this.panelLuke.Size = new System.Drawing.Size(167, 154);
+            this.panelLuke.TabIndex = 20;
+            // 
+            // buttonFightLuke
+            // 
+            this.buttonFightLuke.Font = new System.Drawing.Font("Stencil", 8F);
+            this.buttonFightLuke.Location = new System.Drawing.Point(43, 132);
+            this.buttonFightLuke.Name = "buttonFightLuke";
+            this.buttonFightLuke.Size = new System.Drawing.Size(75, 23);
+            this.buttonFightLuke.TabIndex = 1;
+            this.buttonFightLuke.Text = "Fight";
+            this.toolTipPerson.SetToolTip(this.buttonFightLuke, "Lucky Luke");
+            this.buttonFightLuke.UseVisualStyleBackColor = true;
+            this.buttonFightLuke.Click += new System.EventHandler(this.buttonFightLuke_Click);
+            // 
+            // pictureBoxLukeCross
+            // 
+            this.pictureBoxLukeCross.Image = global::TheWest.Properties.Resources.crossTWS;
+            this.pictureBoxLukeCross.Location = new System.Drawing.Point(0, 0);
+            this.pictureBoxLukeCross.Margin = new System.Windows.Forms.Padding(4);
+            this.pictureBoxLukeCross.Name = "pictureBoxLukeCross";
+            this.pictureBoxLukeCross.Size = new System.Drawing.Size(167, 154);
+            this.pictureBoxLukeCross.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxLukeCross.TabIndex = 0;
+            this.pictureBoxLukeCross.TabStop = false;
+            this.pictureBoxLukeCross.Visible = false;
+            // 
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -733,6 +824,9 @@
             this.BackgroundImage = global::TheWest.Properties.Resources.western_background;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(1515, 619);
+            this.Controls.Add(this.panelJoe);
+            this.Controls.Add(this.panelMary);
+            this.Controls.Add(this.panelLuke);
             this.Controls.Add(this.label_Hour_Stat);
             this.Controls.Add(this.label_Hours);
             this.Controls.Add(this.label_Day_Stat);
@@ -758,9 +852,6 @@
             this.Controls.Add(this.pictureBox_Mind);
             this.Controls.Add(this.label_Aim_Stat);
             this.Controls.Add(this.label_Mind_Stat);
-            this.Controls.Add(this.pictureBox_LuckyLuke);
-            this.Controls.Add(this.pictureBox_FatJoe);
-            this.Controls.Add(this.pictureBox_Mary);
             this.Controls.Add(this.pictureBox_Arthur);
             this.Controls.Add(this.button3_Load);
             this.Controls.Add(this.button2_Save);
@@ -776,14 +867,11 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.HelpButton = true;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.Name = "Form1";
+            this.Name = "FormMain";
             this.Text = "The West";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_TW)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Star)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Arthur)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Mary)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_FatJoe)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox_LuckyLuke)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Mind)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Gun)).EndInit();
             this.panel.ResumeLayout(false);
@@ -796,6 +884,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Church)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Home)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Money)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxMaryCross)).EndInit();
+            this.panelJoe.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxJoeCross)).EndInit();
+            this.panelMary.ResumeLayout(false);
+            this.panelLuke.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLukeCross)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -813,9 +907,6 @@
         private System.Windows.Forms.Button button2_Save;
         private System.Windows.Forms.Button button3_Load;
         private System.Windows.Forms.PictureBox pictureBox_Arthur;
-        private System.Windows.Forms.PictureBox pictureBox_Mary;
-        private System.Windows.Forms.PictureBox pictureBox_FatJoe;
-        private System.Windows.Forms.PictureBox pictureBox_LuckyLuke;
         private System.Windows.Forms.Label label_Mind_Stat;
         private System.Windows.Forms.Label label_Aim_Stat;
         private System.Windows.Forms.PictureBox pictureBox_Mind;
@@ -836,9 +927,7 @@
         private System.Windows.Forms.PictureBox pictureBox_Church;
         private System.Windows.Forms.PictureBox pictureBox_Money;
         private System.Windows.Forms.Label label_Dollar;
-        private System.Windows.Forms.ToolTip toolTip_Luck;
-        private System.Windows.Forms.ToolTip toolTip_Mary;
-        private System.Windows.Forms.ToolTip toolTip_Joe;
+        private System.Windows.Forms.ToolTip toolTipPerson;
         private System.Windows.Forms.Label label_Life_Stat;
         private System.Windows.Forms.Label label_Energy_Stat;
         private System.Windows.Forms.ProgressBar progressBar_Activity;
@@ -854,15 +943,24 @@
         private System.Windows.Forms.Button buttonInvest;
         private System.Windows.Forms.Button buttonPray;
         private System.Windows.Forms.Button buttonBuyWarehouse;
-        private System.Windows.Forms.Button buttonUpgradeHome;
         private System.Windows.Forms.Button buttonUpgradeWarehouse;
         private System.Windows.Forms.Button buttonWorkWood;
         private System.Windows.Forms.Label label_Day;
         private System.Windows.Forms.Label label_Day_Stat;
         private System.Windows.Forms.Label label_Hours;
         private System.Windows.Forms.Label label_Hour_Stat;
-        private System.Windows.Forms.ToolTip toolTip_Buildings;
-        private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.ToolTip toolTipBuildings;
+        private System.Windows.Forms.Timer timerGlobal;
+        private System.Windows.Forms.Timer timerMusic;
+        private System.Windows.Forms.PictureBox pictureBoxMaryCross;
+        private System.Windows.Forms.Panel panelJoe;
+        private System.Windows.Forms.Panel panelMary;
+        private System.Windows.Forms.Panel panelLuke;
+        private System.Windows.Forms.PictureBox pictureBoxJoeCross;
+        private System.Windows.Forms.PictureBox pictureBoxLukeCross;
+        private System.Windows.Forms.Button buttonJoeFight;
+        private System.Windows.Forms.Button buttonFightMary;
+        private System.Windows.Forms.Button buttonFightLuke;
         //toolTip_Luck.SetToolTip(button1, "Save changes");
     }
 }

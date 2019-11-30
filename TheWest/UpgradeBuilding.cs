@@ -6,44 +6,35 @@ using System.Threading.Tasks;
 
 namespace TheWest
 {
-    public class UpgradeBuilding
+    /// <summary>
+    /// klasa abstrakcyjna UpgradeBuilding, po której dziedziczą budynki które da sie ulepszyć czli Store i Warehouse
+    /// </summary>
+    public abstract class UpgradeBuilding
     {
         //zmienne zwiazanae z ulepszeniem bydynkow
         protected int costUpgrade;
-        protected int currentBuildingLevel;
-        private int allCostForupgrade;
+        protected int currentBuildingLevel=1;
+        
         
         //obiekt klasy Arthur
         protected Arthur arthur;
         
-        //konstuktor
-        public UpgradeBuilding(Arthur person)
-        {
-            arthur = person;
-            currentBuildingLevel = 1;
-            allCostForupgrade = 1;
-        }
+        
 
         //gettery i settery
         public int CurrentBuildingLevel { get => currentBuildingLevel; set => currentBuildingLevel = value; }
         public int CostUpgrade { get => costUpgrade; set => costUpgrade = value; }
-        protected int AllCostForupgrade { get => allCostForupgrade; set => allCostForupgrade = value; }
+        
 
 
         /// <summary>
         /// funkcja odpowiedzialna za ulepszanie budynku
         /// </summary>
         /// <param name="value"></param>
-        public void upgradeBuilding(UpgradeBuilding building)
-        {
-            //odjecie pieniedzy za ulepszenie
-            arthur.Money = arthur.Money - building.costUpgrade;
-
-            //podwyzszenie nastepnej ceny ulepszania
-            building.costUpgrade += building.costUpgrade;
-
-            //inkrementacja poziomu
-            building.CurrentBuildingLevel++;
-        }
+        public abstract void UpgradeOfBuilding();
+        /// <summary>
+        /// funkcja odpowiedzialna za ustawienie kosztów ulepszenia
+        /// </summary>
+        public abstract void SetLevel();
     }
 }

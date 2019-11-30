@@ -16,7 +16,6 @@ namespace TheWest
         private bool isResting = false;
         private bool isWorking = false;
         private bool isUpgrading = false;
-        private bool isPraying = false;
         private bool isInvesting = false;
         private bool isHavingWarehouse = false;
         private int timeActivity;
@@ -38,14 +37,13 @@ namespace TheWest
         public bool IsResting { get => isResting; set => isResting = value; }
         public bool IsWorking { get => isWorking; set => isWorking = value; }
         public bool IsUpgrading { get => isUpgrading; set => isUpgrading = value; }
-        public bool IsPraying { get => isPraying; set => isPraying = value; }
         public bool IsInvesting { get => isInvesting; set => isInvesting = value; }
         public bool IsHavingWarehouse { get => isHavingWarehouse; set => isHavingWarehouse = value; }
 
         /// <summary>
         /// funkcja odpowiedzialna za podniesienie poziomu bohatera gdy doswiadczenie bedzie rowne 100 i przypisanie 0
         /// </summary>
-        public void increaseLevel()
+        public void IncreaseLevel()
         {
                level++;
               
@@ -54,7 +52,7 @@ namespace TheWest
         /// funkcja ktora przypisuje zmiennej mind wartosc wieksza o value
         /// </summary>
         /// <param name="value"></param>
-        public void upgradeMind(int value)
+        public void UpgradeMind(int value)
         {
             mind += value;
         }

@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WMPLib;
@@ -31,6 +32,8 @@ namespace TheWest
         //zmienna przechowuje wartosc zmiany aktywnosci
         int valueExperience;
 
+        //pensaj otrzymywana w budynkach gdzie mozna pracowac
+        int salary;
         //pieniadze przyznawane za nowy poziom
 
         int levelUpMoney = 400;
@@ -52,22 +55,63 @@ namespace TheWest
         //zmienna potrzebna do przeczytania ksiazki w zdarzeniu losowym
         bool isPlayed = false;
 
+        //lista jednostek jednostek z OldTown
+        private List<Unit> unitsOldtown = new List<Unit>();
+
+        //lista jednostek jednostek z Newport
+        private List<Unit> unitsNewport = new List<Unit>();
+
+        //liczniki jednostek dla Oldtown
+        int counterOfHorsesOldtown = 0;
+        int counterOfShootersOldtown = 0;
+
+        //liczniki jednostek dla Newport
+        int counterOfHorsesNewport= 0;
+        int counterOfShootersNewport = 0;
+
+        //zmienne przechowujace ogolny status obrony jednostek Oldtown
+        int overallDefendOldtown = 0;
+        int overallAttackOldtown = 0;
+
+        //zmienne przechowujace ogolny status obrony jednostek Newport
+        int overallAttackNewport = 0;
+        int overallDefendNewport = 0;
         //przypisanie postaci w grze statystyk oraz utworzenie ich obiektow
-        Arthur arthur = new Arthur("Arthur", 1,5,40,400, 100, 100);
-        Person luke= new Person("Luke",6, 95, 90, 5000);
-        Person joe= new Person("Joe",4, 60, 60, 1200);
-        Person mary= new Person("Mary", 2, 30,35,600);
+        Arthur arthur = new Arthur("Arthur", 1,5,40,1000, 100, 100);
+        Person luke;
+        Person joe;
+        Person mary;
 
         //obiekty klas 
         Home home;
         Store store;
         Warehouse warehouse;
+        Church church;
+        WoodWork wood;
+        HotelWork hotel;
+        Saloon saloon;
+        StudOfHorses horses;
+
 
         //obiekt klasy potrzebnej do wywolania okna
         FormDialog formDialog;
 
-        //obiekt klasy store 
-        UpgradeBuilding building;
+        //obiekty klas abstrakcyjnych
+        WorkBuilding work;
+        RestBuilding rest;
+        PlayBuilding play;
+        RandomEvent randomEvent;
+        Unit unit;
+
+        //zmienne logiczne, ktore przechowuja czy antygonisci żyja
+        bool isMaryDead = false;
+        bool isJoeDead=false;
+        bool isLukeDead=false;
+
+
+
+        //zmienna informujaca czy atakujemy newport
+        bool isAttacking = false;
 
         //konstrukor
         public FormMain()
@@ -82,12 +126,14 @@ namespace TheWest
             //wlaczenie muzyki
             player.controls.play();
 
-            //inicjacja obiektow
-            home = new Home(arthur);
+            //inicjalizacja obiektu klaasy Store
             store = new Store(arthur);
+
+            //inicjalizacja obiektu klaasy Warehouse
             warehouse = new Warehouse(arthur);
-            building = new UpgradeBuilding(arthur);
-            
+
+            //wywolanie funkcji ktora dodaje jednostki Newport
+            AddUnitsOfNewport(-5);
             //timer ustawiony co sekunde i wystartowanie czasu
             timerGlobal.Interval = 1000;
             timerGlobal.Start();
@@ -139,7 +185,21 @@ namespace TheWest
             label_Hour_Stat.BackColor = Color.Transparent;
             label_Day_Stat.BackColor = Color.Transparent;
             label_Hours.BackColor = Color.Transparent;
+            labelAttackNewport.BackColor = Color.Transparent;
+            labelRecruit.BackColor = Color.Transparent;
             label_Day.BackColor = Color.Transparent;
+            groupBoxArmyOldTown.BackColor = Color.Transparent;
+            groupBoxArmyOfNewport.BackColor = Color.Transparent;
+            radioButtonShooter.BackColor = Color.Transparent;
+            radioButtonHorse.BackColor = Color.Transparent;
+            radioButtonAttack.BackColor = Color.Transparent;
+            radioButtonPeace.BackColor = Color.Transparent;
+            pictureBoxHorses.BackColor= Color.Transparent;
+            pictureBoxHotel.BackColor = Color.Transparent;
+            labelOldtownHorsesStat.BackColor = Color.Transparent;
+            labelNewportHorsesStat.BackColor = Color.Transparent;
+            labelNewportShootersStat.BackColor = Color.Transparent;
+            labelOldtownShootersStat.BackColor = Color.Transparent;
 
             //przypisanie label'om i paskom aktywnosci wartosci startowych
             label_Level_Stat.Text = arthur.Level.ToString();
@@ -150,9 +210,12 @@ namespace TheWest
             label_Aim_Stat.Text = arthur.Aim.ToString();
             progressBar_Exp.Value = arthur.Experience;
 
+
           
 
         }
+
+        
 
 
         /// <summary>
@@ -169,7 +232,9 @@ namespace TheWest
                 "Last but not least is Luke's girlfriend, Bloody Mary.  You have 3 main statistisc which you can improve." +
                 "Money, mind and aim - improving these statistisc will help you in duels with gang." +
                 "Money is important to upgrading store. If you upgrade a store, your aim will be automicaly higher. Aim is important and crucial in duels with gang." +
-                "Last but not least is intelligence. Upgrading this stat will give you more opurtunities in the game and it's very helpful. Good luck!");
+                "Last but not least is intelligence. Upgrading this stat will give you more opurtunities in the game and it's very helpful. The new option in the game is " +
+                "possibilty of attacking other town - Newport; you can recruit your units from your town for the right amount of money. Horses will give you more attacing stats," +
+                " but shooters are better in defending. Good luck!");
         }
 
         
@@ -180,14 +245,27 @@ namespace TheWest
         /// <param name="e"></param>
         private void buttonReadBook_Click(object sender, EventArgs e)
         {
+            //rzutowanie na klase abstrakcyjną
+            rest = new Home(arthur, 5, 5);
+            home = (Home)rest;
+
+            //przypisanie wartosci zmiennych czasu wykonania i energii
+            valueActivity = 100 / home.TimeOfActivity();
+
             //inicjalizacja energii
-            valueEnergy = 20;
+            valueEnergy = home.EnergyOfActivity() / home.TimeOfActivity();
+            
+            
+            
+            valueExperience = home.ExperienceOfActivity();
+
+                 
 
             //warunek
             if (arthur.Mind < 100 && arthur.Energy >= valueEnergy)
             {
                 //wywoluje funkcje readBook()
-                home.readBook();
+                home.ReadBook();
 
                 //zmiana bool poniewaz bohater czyta
                 arthur.IsReading = true;
@@ -198,14 +276,14 @@ namespace TheWest
                     isReaden = true;
                 }
                 //blokada przyciskow
-                blockButtons();
+                BlockButtons();
 
                 
                 //zmieniam wartosc label na aktualna
                 label_Mind_Stat.Text = arthur.Mind.ToString();
 
                 //wzrost doswiadczenia
-                increaseExperience(10);
+                IncreaseExperience(valueExperience);
             }
             else if (arthur.Mind < 100 && arthur.Energy < valueEnergy)
             {
@@ -227,11 +305,20 @@ namespace TheWest
         /// <param name="e"></param>
         private void buttonRestHome_Click(object sender, EventArgs e)
         {
+            //rzutowanie na klase abstrakcyjną
+            rest = new Home(arthur, 5, 5);
+            home = (Home)rest;
+
+            //przypisanie wartosci zmiennych
+            valueActivity = 100 / home.TimeOfActivity();
+            valueEnergy = home.GetGivenEnergy();
+            valueLife = home.GetGivenHealth();
+
             //przypisanie wartosci logicznej true ""odpoczywa teraz"
             arthur.IsResting = true;
 
             //blokowanie przyciskow
-            blockButtons();
+            BlockButtons();
             
           }
 
@@ -256,14 +343,16 @@ namespace TheWest
                 // zwiększenie dni o 1
                 day++;
 
-                //warunek losowy zabranie pieniedzy z konta
+                //warunek losowy zabranie pieniedzy z konta, poniewaz przecieka dach
                 if (day == 4)
                 {
-                    int roofRepairMoney = arthur.Money /10;
-                    MessageBox.Show("Oh no, your roof in home is leaking, you must reapir it. It will cost "+ roofRepairMoney+" $");
-                    arthur.Money -= roofRepairMoney;
+                    //rzutowanie na klase abstrakcyjną
+                    randomEvent = new FirstEvent(arthur);
+                    FirstEvent first = (FirstEvent)randomEvent;
+                    //wywołanie funkcji ze zdarzeniem
+                    first.RandomEventInGame();
+                    //przypisanie pieniedzy do label'a
                     label_Money_Stat.Text = arthur.Money.ToString();
-
                 }
 
                 //warunek losowy mus przeczytania  ksiazki w ciagu dnia
@@ -281,15 +370,16 @@ namespace TheWest
                     }
                     else
                     {
-                        //jesli nie mamy odejmuje 1/10 naszego stanu konta
-                        int civilCodeMoney = arthur.Money / 10;
-                        MessageBox.Show("You had to pay "+ civilCodeMoney + " $");
-                        //przypisanie nowej zmiennej i aktualizacja etykiety
-                        arthur.Money -= civilCodeMoney;
+                        //rzutowanie na klase abstrakcyjną
+                        randomEvent = new SecondEvent(arthur);
+                        SecondEvent second = (SecondEvent)randomEvent;
+                        //wywolanie metody ze zdarzeniem
+                        second.RandomEventInGame();
+                        //aktualizacja label'a
                         label_Money_Stat.Text = arthur.Money.ToString();
-                       
+
                     }
-                    
+
                 }
 
                 ////warunek losowy zagrania w kasynie 10 dnia
@@ -309,9 +399,12 @@ namespace TheWest
                     }
                     else
                     {
-                        //uszkodzenie zdrowia gracza i aktualizacja etykiety
-                        MessageBox.Show("Your friend is quite temperamental, he was drunk and almost kill you...");
-                        arthur.Life = 10;
+                        //rzutowanie na klase abstrakcyjną
+                        randomEvent = new ThirdEvent(arthur);
+                        ThirdEvent third = (ThirdEvent)randomEvent;
+                        //wywolanie metody ze zdarzeniem
+                        third.RandomEventInGame();
+                        //aktualizacja label'a
                         label_Life_Stat.Text = arthur.Life.ToString();
 
                     }
@@ -330,6 +423,7 @@ namespace TheWest
                         //pomnozenie pieniedzy
                         arthur.Money = bankMoney * 2;
                         counter = 0;
+                        //aktualizacja label'a
                         label_Money_Stat.Text = arthur.Money.ToString();
                         MessageBox.Show("Well done you earned from bank " + arthur.Money.ToString() + " $");
                         arthur.IsInvesting = false;
@@ -341,12 +435,7 @@ namespace TheWest
             //jesli czyta wykonuje instrukcje
             if (arthur.IsReading)
              {
-                //przypisanie wartosci zmiennych
-                valueActivity = 25;
-                valueEnergy = 5;
-
-                
-                if (progressBar_Activity.Value < 100)
+                  if (progressBar_Activity.Value < 100)
                 {
 
                     //inkrementuje activity bar o valueActivity
@@ -355,7 +444,7 @@ namespace TheWest
                     
 
                     //dekrementacja wartosci energii
-                    decrementOfEnergy(valueEnergy);
+                    DecrementOfEnergy(valueEnergy);
 
                 }
 
@@ -370,19 +459,15 @@ namespace TheWest
                     progressBar_Activity.Value = 0;
                     
                     //odblokowanie przyciskow
-                    unlockButtons();
+                    UnlockButtons();
                 }
                 
              }
 
-            //jesli odpoczywa wykonuje instrukcje
+            //jesli odpoczywa lub sie modli wykonuje instrukcje
             if (arthur.IsResting)
             {
-                //przypisanie wartosci zmiennych
-                valueActivity = 20;
-                valueEnergy = 4;
-                valueLife = 8;
-
+                
                 if (progressBar_Activity.Value < 100)
                 {
 
@@ -390,8 +475,8 @@ namespace TheWest
                     progressBar_Activity.Increment(valueActivity);
 
                     //dekrementacja wartosci energii
-                    incrementEnergy(valueEnergy);
-                    incrementLife(valueLife);
+                    IncrementEnergy(valueEnergy);
+                    IncrementLife(valueLife);
                 }
 
                 if (progressBar_Activity.Value >= 100)
@@ -403,40 +488,11 @@ namespace TheWest
                     progressBar_Activity.Value = 0;
 
                     //odblokowanie przyciskow
-                    unlockButtons();
+                    UnlockButtons();
                 }
 
             }
-            //jesli sie modli wykonuje instrukcje
-            if (arthur.IsPraying)
-            {
-                //przypisanie wartosci zmiennych
-                valueActivity = 50;
-                valueEnergy = 25;
-
-                if (progressBar_Activity.Value < 100)
-                {
-
-                    //inkrementuje activity bar o valueActivity
-                    progressBar_Activity.Increment(valueActivity);
-
-                    //dekrementacja wartosci energii
-                    incrementEnergy(valueEnergy);
-
-                }
-                if (progressBar_Activity.Value >= 100)
-                {
-                    //przypisuje false bo bohater skonczyl czytac ksiazke
-                    arthur.IsPraying = false;
-
-                    //zeruje pasek aktywnosci
-                    progressBar_Activity.Value = 0;
-
-                    //odblokowanie przyciskow
-                    unlockButtons();
-                }
-
-            }
+            
             //jesli ulepsza wykonuje instrukcje
             if (arthur.IsUpgrading)
             {
@@ -451,7 +507,7 @@ namespace TheWest
                     progressBar_Activity.Increment(valueActivity);
 
                     //dekrementacja wartosci energii
-                    decrementOfEnergy(valueEnergy);
+                    DecrementOfEnergy(valueEnergy);
 
                 }
                 if (progressBar_Activity.Value >= 100)
@@ -463,16 +519,14 @@ namespace TheWest
                     progressBar_Activity.Value = 0;
 
                     //odblokowanie przyciskow
-                    unlockButtons();
+                    UnlockButtons();
                 }
 
             }
             //jesli pracuje wykonuje instrukcje
             if (arthur.IsWorking)
             {
-                //przypisanie wartosci zmiennych
-                valueActivity = 20;
-                valueEnergy = 6;
+                
 
                 if (arthur.Energy - valueEnergy >= 0)
                 {
@@ -483,13 +537,13 @@ namespace TheWest
                         progressBar_Activity.Increment(valueActivity);
 
                         //zmienienie wartosci pieniedzy 
-                        arthur.Money += valueActivity;
+                        arthur.Money += salary;
 
                         //przypisanie wartosci pieniedzy do etykiety
                         label_Money_Stat.Text = arthur.Money.ToString();
 
                         //dekrementacja wartosci energii
-                        decrementOfEnergy(valueEnergy);
+                        DecrementOfEnergy(valueEnergy);
                     }
 
                     if (progressBar_Activity.Value >= 100)
@@ -497,17 +551,21 @@ namespace TheWest
                         //przypisuje false bo bohater skonczyl czytac ksiazke
                         arthur.IsWorking = false;
 
+                        //wzrost doswiadczenia
+                        IncreaseExperience(valueExperience);
+
                         //zeruje pasek aktywnosci
                         progressBar_Activity.Value = 0;
 
                         //odblokowanie przyciskow
-                        unlockButtons();
+                        UnlockButtons();
                     }
                 }
                 else
                 {
+                    //jesli nie spelnia warunku
                     arthur.IsWorking = false;
-                    unlockButtons();
+                    UnlockButtons();
                     MessageBox.Show("You are too tired for working");
                 }
             }
@@ -525,7 +583,17 @@ namespace TheWest
                            
              }
 
-
+            if (isAttacking)
+            {
+                progressBarAttack.Increment(25);
+                if (progressBarAttack.Value == 100)
+                {
+                    progressBarAttack.Value = 0;
+                    
+                    isAttacking = false;
+                    UnlockButtons();
+                }
+            }
 
 
 
@@ -535,12 +603,12 @@ namespace TheWest
         /// <summary>
         /// funkcja blokuje przyciski podczas wykonywania czynnosci
         /// </summary>
-        public void blockButtons()
+        public void BlockButtons()
         {
             buttonReadBook.Enabled = false;
-            button1_Instruction.Enabled = false;
-            button2_Save.Enabled = false;
-            button3_Load.Enabled = false;
+            buttonInstruction.Enabled = false;
+            buttonSave.Enabled = false;
+            buttonLoad.Enabled = false;
             buttonBuyWarehouse.Enabled = false;
             buttonInvest.Enabled = false;
             buttonPoker.Enabled = false;
@@ -552,18 +620,21 @@ namespace TheWest
             buttonFightLuke.Enabled = false;
             buttonFightMary.Enabled = false;
             buttonJoeFight.Enabled = false;
-            
+            buttonAttack.Enabled = false;
+            buttonBetOnHorses.Enabled = false;
+            buttonRecruit.Enabled = false;
+            buttonWorkHotel.Enabled = false;
         }
 
         /// <summary>
         /// funkcja odblokowuje przyciski po wykonaniu czynnosci
         /// </summary>
-        public void unlockButtons()
+        public void UnlockButtons()
         {
             buttonReadBook.Enabled = true;
-            button1_Instruction.Enabled = true;
-            button2_Save.Enabled = true;
-            button3_Load.Enabled = true;
+            buttonInstruction.Enabled = true;
+            buttonSave.Enabled = true;
+            buttonLoad.Enabled = true;
             buttonBuyWarehouse.Enabled = true;
             buttonInvest.Enabled = true;
             buttonPoker.Enabled = true;
@@ -575,6 +646,10 @@ namespace TheWest
             buttonFightLuke.Enabled = true;
             buttonFightMary.Enabled = true;
             buttonJoeFight.Enabled = true;
+            buttonAttack.Enabled = true;
+            buttonBetOnHorses.Enabled = true;
+            buttonRecruit.Enabled = true;
+            buttonWorkHotel.Enabled = true;
 
         }
 
@@ -582,7 +657,7 @@ namespace TheWest
         /// funkcja odpowiedzialna za wzrost doswiadczenia
         /// </summary>
         /// <param name="value"></param>
-        public void increaseExperience(int value)
+        public void IncreaseExperience(int value)
         {
             //zmienna pomocnicza potrzebna do punktow doswiadczenia w przypadku awansu poziomu naszej postaci 
             int diffrenceExperience=0;
@@ -605,16 +680,33 @@ namespace TheWest
                 progressBar_Exp.Value = arthur.Experience;
 
                 //zwrost poziomu
-                arthur.increaseLevel();
+                arthur.IncreaseLevel();
                 MessageBox.Show("Congratulations, level up. You receive "+levelUpMoney+" $");
+
+                //jesli jest wiecej jednostek w oldtown niz w newport to tworze konkurencje mianowicie tworze 
+                //konkurencje w postaci dwukrotnej ilosci róznicy jednostek pomiedzy miastami i przypisuje do jednostek w newport
+                //roznica pomiedzy iloscia jednostek
+                int diffrenceOfUnits = unitsNewport.Count() - unitsOldtown.Count();
+                if (diffrenceOfUnits < 0)
+                {
+
+                    AddUnitsOfNewport(diffrenceOfUnits);
+                    MessageBox.Show("Newport units are gather steam, watch out");
+                }
+                
+                //odblokowanie przyciskow jak w czasie pracy awans
+                UnlockButtons();
 
                 //zwiekszenie pieniedzy za poziom
                 levelUpMoney += 200;
 
                 //przypisanie i aktualizacja etykiet
                 arthur.Money += levelUpMoney;
-                label_Money_Stat.Text = levelUpMoney.ToString();
+                label_Money_Stat.Text = arthur.Money.ToString();
                 label_Level_Stat.Text = arthur.Level.ToString();
+
+                //odblokowanie przycisku jesli wybralismy pokoj z newport
+                buttonAttack.Enabled = true ;
             }
             
         }
@@ -622,7 +714,7 @@ namespace TheWest
         /// <summary>
         /// dekremntacja energii
         /// </summary>
-        public void decrementOfEnergy(int value)
+        public void DecrementOfEnergy(int value)
         {
             //jesli spelnia warunek  to dekrementacja energii i przypisanie do etykiety
             if (arthur.Energy>= value)
@@ -644,7 +736,7 @@ namespace TheWest
         /// inkrementacja energii o zadana wartosc
         /// </summary>
         /// <param name="value"></param>
-        public void incrementEnergy(int value)
+        public void IncrementEnergy(int value)
         {
             //jesli spelnia warunek  to dekrementacja energii i przypisanie do etykiety
             if (arthur.Energy <= 100-value)
@@ -665,7 +757,7 @@ namespace TheWest
         }
 
         /// <summary>
-        /// funkcja obslugujaca timer do muzyki
+        /// funkcja obslugujaca timer do muzyki, zapetla utwor
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -691,17 +783,24 @@ namespace TheWest
         /// <param name="e"></param>
         private void buttonWorkWood_Click(object sender, EventArgs e)
         {
-            //koszta pracy(energia aktywnosc)
-            valueEnergy = 30;
-            valueExperience = 20;
+            //rzutowanie na klase abstrakcyjna
+            work = new WoodWork(30);
+            wood = (WoodWork)work;
+            //koszta pracy(energia doswiadczenie)
+            valueEnergy = wood.EnergyOfActivity();
+            valueExperience = wood.ExperienceOfActivity() ;
             if (arthur.Energy >= valueEnergy)
             {
+                //przypisanie wartosci zmiennych(aktywnosci i zapłaty)
+                valueActivity = 100 / work.TimeOfActivity();
+                salary = work.GetSalaryPerHour();
+                //energia na godzine
+                valueEnergy = work.EnergyOfActivity() / work.TimeOfActivity();
                 //przypisanie praacy i blokada przyciskow
                 arthur.IsWorking = true;
 
-                //wzrost doswiadczenia
-                increaseExperience(valueExperience);
-                 blockButtons();
+                //blokowanie przyciskow
+                BlockButtons();
             }
             else
             {
@@ -719,25 +818,39 @@ namespace TheWest
         /// <param name="e"></param>
         private void buttonPray_Click(object sender, EventArgs e)
         {
+            //rzutowanie na klase abstrakcyjna
+            rest = new Church(25, 25);
+            church = (Church)rest;
             //koszt modlitwy
-            int costOfPray = 150;
+            int costOfPray = church.CostOfActivity();
+
+            //przypisanie wartosci zmiennych
+            valueActivity = 100 / church.TimeOfActivity();
+            valueEnergy = church.GetGivenEnergy();
+            valueLife = church.GetGivenHealth();
+
 
             //doswiadczenie za modlitwe
-            valueExperience = 10;
+            valueExperience = church.ExperienceOfActivity(); ;
 
             //warunek jesli pieniadza sa wieksze od kosztu modlitwy
             if(arthur.Money>= costOfPray)
             {
+                
                 //wlaczenie modlitwy
-                arthur.IsPraying = true;
+                arthur.IsResting = true;
 
                 //wzrost doswaidczenia
-                increaseExperience(valueExperience);
+                IncreaseExperience(valueExperience);
 
                 //redukcja pieniedzy
                 arthur.Money -= costOfPray;
+
+                //aktualizacja etykiety
                 label_Money_Stat.Text = arthur.Money.ToString() ;
-                blockButtons();
+
+                //blokowanie przyciskow
+                BlockButtons();
             }
             else
             {
@@ -752,9 +865,11 @@ namespace TheWest
         /// <param name="e"></param>
         private void buttonUpgradeStore_Click(object sender, EventArgs e)
         {
+            
 
-
-            //warunek
+            
+            
+                //warunki ulepszenia kslepu
                 if (arthur.Aim < 100 && arthur.Level >= store.CurrentBuildingLevel && arthur.Money - store.CostUpgrade >= 0&& store.CurrentBuildingLevel<7)
                 {
                     //koszt energii
@@ -764,7 +879,7 @@ namespace TheWest
                     if (arthur.Energy - valueEnergy >= 0)
                     {
                     //blokowanie klawiszy
-                    blockButtons();
+                    BlockButtons();
 
                     //doswiadczenie za ulepszenie
                     valueExperience = 20;
@@ -773,13 +888,13 @@ namespace TheWest
                     arthur.IsUpgrading = true;
 
                     //wzrost poziomu budynku
-                    building.upgradeBuilding(store);
+                    store.UpgradeOfBuilding();
 
                     //zwiekszenie celnosci
-                    store.boostingAim();
-
+                    store.BoostingAim();
+                    
                     //wzrost doswiadczenia
-                    increaseExperience(valueExperience);
+                    IncreaseExperience(valueExperience);
 
                     //aktualizcaja etykiet
                     label_Aim_Stat.Text = arthur.Aim.ToString();
@@ -828,7 +943,7 @@ namespace TheWest
                 if (arthur.Mind >= 50)
                 {
                     //otwieram dodatkowe okno z textboxem do wpisania ilosci pieniedzy i przypisuje
-                    moneyFromDialog = dialogWindow();
+                    moneyFromDialog = DialogWindow();
                     bankMoney = moneyFromDialog;
 
                     if (moneyFromDialog < 100)
@@ -846,6 +961,8 @@ namespace TheWest
                         MessageBox.Show("After 4 days you will earn doble amount of given money");
                         arthur.Money -= bankMoney;
                         label_Money_Stat.Text = arthur.Money.ToString();
+
+                        //wlaczenie trybu inwestowania
                         arthur.IsInvesting = true;
                         buttonInvest.Enabled = false;
                     }
@@ -865,7 +982,7 @@ namespace TheWest
         /// <summary>
         ///funkcja otwiera okno dialogowe potrzebne do podania ilosci pieniedzy 
         /// </summary>
-        private int dialogWindow()
+        private int DialogWindow()
         {
             //zmienna pomocnicza
             int amountOfmoney = 0;
@@ -888,7 +1005,7 @@ namespace TheWest
         {   
             
             //przydział pieniedzy
-            moneyFromDialog = dialogWindow();
+            moneyFromDialog = DialogWindow();
             
             if (moneyFromDialog < 50)
             {
@@ -901,30 +1018,33 @@ namespace TheWest
             }
             else
             {
-                // Instantiate random number generator using system-supplied value as seed.
-                var rand = new Random();
-
-                //losowanie liczby
-                int randomNumber = rand.Next(101);
+                //rzutowanie na klase abstrakcyjna
+                play = new Saloon(50);
+                saloon = (Saloon)play;
 
                 //warunek zagrania w pokera 10 dnia
                 if (day == 10)
                 {
+                    //pomocnicza zmienna pokazuje czy bohater zagrał 10 dnia potrzebna do losowego zdarzenia
                     isPlayed = true;
                 }
+
                 //jesli pseudo liczba mniejsza od 50 to starta pieniedzy, około 50% na przegranie
-                if (randomNumber < 50)
+                if (!play.Permutation())
                 {
+                    //dektrementacja pieniedzy
                     arthur.Money -= moneyFromDialog;
                     
                     MessageBox.Show("Unfortunetely you lost " + moneyFromDialog);
                 }
                 else
                 {
+                    //inkrementacja pieniedzy
                     arthur.Money += moneyFromDialog;
                     
                     MessageBox.Show("Congratulations you won "+ moneyFromDialog);
                 }
+                //aktualizacja pieniedzy
                 label_Money_Stat.Text = (arthur.Money).ToString();
 
             }
@@ -940,7 +1060,11 @@ namespace TheWest
             //warunek to intelgencja>=40
             if (arthur.Mind >= 60)
             {
-               
+
+
+
+              
+
                 if (arthur.Money< warehouse.CostBuy)
                 {
                     MessageBox.Show("You should have  "+warehouse.CostBuy+" $ to buy warehouse.");
@@ -948,6 +1072,9 @@ namespace TheWest
                 }
                 else
                 {
+
+                    
+                    
                     //znikniecie przycisku
                     buttonBuyWarehouse.Enabled = false;
                     buttonBuyWarehouse.Visible = false;
@@ -955,7 +1082,8 @@ namespace TheWest
                     //redukcja piebniedzy
                     arthur.Money -= warehouse.CostBuy;
                     MessageBox.Show("Congratulations you bought warehouse, now you can earn money all the time!");
-                    increaseExperience(10);
+                    //inkrementacja doswiadczenia
+                    IncreaseExperience(10);
                     //pokazanie przycisku do ulepszania
                     buttonUpgradeWarehouse.Visible = true;
                     arthur.IsHavingWarehouse = true;
@@ -974,6 +1102,7 @@ namespace TheWest
         /// <param name="e"></param>
         private void buttonUpgradeWarehouse_Click(object sender, EventArgs e)
         {
+            
             if (arthur.Level >= warehouse.CurrentBuildingLevel && arthur.Money - warehouse.CostUpgrade >= 0&& warehouse.CurrentBuildingLevel < 6)
             {
                 //koszt energii ulepszenia
@@ -983,21 +1112,21 @@ namespace TheWest
                 if (arthur.Energy - valueEnergy >= 0)
                 {
                     //blokowanie pieniedzy
-                    blockButtons();
+                    BlockButtons();
                     valueExperience = 15;
-                    
+
                     //podniesienie wyplaty
-                    warehouse.risingSalary();
+                    warehouse.SetLevel();
 
                     //wlaczenie trybu ulepszania w zegarze
                     arthur.IsUpgrading = true;
 
                     //ulepszenie budynku
-                    building.upgradeBuilding(warehouse);
+                    warehouse.UpgradeOfBuilding();
 
 
                     //wzrost doswiadczeniancreaseExperience(valueExperience);
-                    increaseExperience(20);
+                    IncreaseExperience(20);
                     
                 }
                 else
@@ -1022,18 +1151,23 @@ namespace TheWest
         }
 
         /// <summary>
-        /// klikniecie przycisku wywoloje 
+        /// klikniecie przycisku wywoloje pojedynek z Mary 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void buttonFightMary_Click(object sender, EventArgs e)
         {
+            //energia potrzebna do pojedynku
             valueEnergy = 50;
+            
 
-            if(arthur.Energy>= valueEnergy&&arthur.Life>=100)
+            if (arthur.Energy>= valueEnergy&&arthur.Life>=100)
             {
+                //nowy obiekt klasy enemy
+                mary = new Enemy("Mary", 2, 30, 35, 600);
                 if (mary.Aim >= arthur.Aim)
                 {
+                    //jesli przegramy: zycie=10 i energia=10;aktualizuje etykiety
                     MessageBox.Show("Unfortunetely you lost but hopefully you ran away");
                     arthur.Life = 10;
                     label_Life_Stat.Text = arthur.Life.ToString();
@@ -1042,12 +1176,18 @@ namespace TheWest
                 }
                 else
                 {
+                    //wylaczam przycisk odpowiadajzy za walke
                     buttonFightMary.Enabled = false;
+                    buttonFightMary.Visible = false;
+                    //pokazuje krzyzyk informujacy o smierci
                     pictureBoxMaryCross.Visible = true;
+                    isMaryDead = true;
                     MessageBox.Show("Congratulations you won, Mary is dead");
-                    decrementOfEnergy(10);
+                    //dekrementuje energie
+                    DecrementOfEnergy(10);
                     label_Energy_Stat.Text = arthur.Energy.ToString();
-                    increaseExperience(50);
+                    //inkrrmentuje doswiadczenie
+                    IncreaseExperience(50);
                     arthur.Money += mary.Money;
                     label_Money_Stat.Text = arthur.Money.ToString();
                 }
@@ -1064,14 +1204,22 @@ namespace TheWest
 
         }
 
+        /// <summary>
+        /// klikniecie przycisku wywoloje pojedynek z Joe 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void buttonJoeFight_Click(object sender, EventArgs e)
         {
+            //energia potrzebna do pojedynku
             valueEnergy = 50;
 
             if (arthur.Energy >= valueEnergy && arthur.Life >= 100)
             {
+                joe = new Enemy("Joe", 4, 60, 60, 1200);
                 if (joe.Aim > arthur.Aim)
                 {
+                    //jesli przegramy: zycie=10 i energia=10;aktualizuje etykiety
                     MessageBox.Show("Unfortunetely you lost but hopefully you ran away");
                     arthur.Life = 10;
                     label_Life_Stat.Text = arthur.Life.ToString();
@@ -1080,12 +1228,18 @@ namespace TheWest
                 }
                 else
                 {
+                    //wylaczam przycisk odpowiadajzy za walke
                     buttonJoeFight.Enabled = false;
+                    buttonJoeFight.Visible = false;
+                    //pokazuje krzyzyk informujacy o smierci
                     pictureBoxJoeCross.Visible = true;
+                    isJoeDead = true;
                     MessageBox.Show("Congratulations you won, Joe is dead");
-                    decrementOfEnergy(10);
+                    //dekrementuje energie
+                    DecrementOfEnergy(10);
                     label_Energy_Stat.Text = arthur.Energy.ToString();
-                    increaseExperience(60);
+                    //inkrrmentuje doswiadczenie
+                    IncreaseExperience(60);
                     arthur.Money += joe.Money;
                     label_Money_Stat.Text = arthur.Money.ToString();
                 }
@@ -1104,12 +1258,15 @@ namespace TheWest
 
         private void buttonFightLuke_Click(object sender, EventArgs e)
         {
+            //energia potrzebna do pojedynku
             valueEnergy = 50;
 
             if (arthur.Energy >= valueEnergy && arthur.Life >= 100)
             {
+                luke = new Enemy("Luke", 6, 95, 90, 5000);
                 if (luke.Aim > arthur.Aim)
                 {
+                    //jesli przegramy: zycie=10 i energia=10;aktualizuje etykiety
                     MessageBox.Show("Unfortunetely you lost but hopefully you ran away");
                     arthur.Life = 10;
                     label_Life_Stat.Text = arthur.Life.ToString();
@@ -1119,11 +1276,18 @@ namespace TheWest
                 else
                 {
                     buttonFightLuke.Enabled = false;
+                    buttonFightLuke.Visible = false;
+                    //pokazuje krzyzyk informujacy o smierci
                     pictureBoxLukeCross.Visible = true;
+                    //wylaczam przycisk odpowiadajzy za walke
+                    buttonFightLuke.Visible = true;
+                    isLukeDead = true;
                     MessageBox.Show("Congratulations, old town is yours. Now just have fun :)");
-                    decrementOfEnergy(10);
+                    //dekrementuje energie
+                    DecrementOfEnergy(10);
                     label_Energy_Stat.Text = arthur.Energy.ToString();
-                    increaseExperience(50);
+                    //inkrrmentuje doswiadczenie
+                    IncreaseExperience(70);
                     arthur.Money += luke.Money;
                     label_Money_Stat.Text = arthur.Money.ToString();
 
@@ -1143,15 +1307,512 @@ namespace TheWest
             }
         }
 
-        
+        /// <summary>
+        /// funkcja obslugujaca zapis wszelakich informacji o stanie gry 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            //przypisanie do tablicy informacji
+            string[] lines = {arthur.Name.ToString(),arthur.Life.ToString(),arthur.Energy.ToString(), arthur.Level.ToString(), arthur.Money.ToString(), arthur.Mind.ToString(),
+            arthur.Aim.ToString(),arthur.Experience.ToString(),warehouse.CurrentBuildingLevel.ToString(),store.CurrentBuildingLevel.ToString(),isMaryDead.ToString(),isJoeDead.ToString(),isLukeDead.ToString(),arthur.IsHavingWarehouse.ToString(),counterOfHorsesNewport.ToString(),counterOfShootersNewport.ToString(),
+            counterOfHorsesOldtown.ToString(),counterOfShootersOldtown.ToString()};
+            try {
+                //zapisuje do pilku "save.txt"
+                System.IO.File.WriteAllLines(@"save.txt", lines);
+                MessageBox.Show("The game has been saved!");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+        /// <summary>
+        /// opcja czytania stanu gry z pliku
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonLoad_Click(object sender, EventArgs e)
+        {
+            //string[] lines = System.IO.File.ReadAllLines(@"save.txt");
+            try
+            {
+                //odczytuje dane z pliku "save.txt" i przypisuje elementy tablicy do kazdej statystyki bohatera lub innej zminnej
+                string[] lines = System.IO.File.ReadAllLines(@"save.txt");
+                arthur.Name = lines[0];
+                arthur.Life = int.Parse(lines[1]);
+                arthur.Energy = int.Parse(lines[2]);
+                arthur.Level = int.Parse(lines[3]);
+                arthur.Money = int.Parse(lines[4]);
+                arthur.Mind = int.Parse(lines[5]);
+                arthur.Aim = int.Parse(lines[6]);
+                arthur.Experience = int.Parse(lines[7]);
+                
+                store.CurrentBuildingLevel = int.Parse(lines[9]);
+                Boolean.TryParse(lines[10], out isMaryDead);
+                Boolean.TryParse(lines[11], out isJoeDead);
+                Boolean.TryParse(lines[12], out isLukeDead);
+
+                //wczytanie stanu jednostek i czyszczenie list i inicjalizacja na nowo
+                counterOfHorsesNewport = int.Parse(lines[14]);
+               counterOfShootersNewport = int.Parse(lines[15]);
+               unitsNewport.Clear();
+               LoadUnitsFromFile(unitsNewport);
+                counterOfHorsesOldtown = int.Parse(lines[16]);
+                counterOfShootersOldtown = int.Parse(lines[17]);
+                 unitsOldtown.Clear();
+                LoadUnitsFromFile(unitsOldtown);
+
+                //zmienna pomocnicza czy ma magazyn bohater
+                bool isHaving = false;
+                Boolean.TryParse(lines[13], out isHaving);
+
+                arthur.IsHavingWarehouse = isHaving;
 
 
+                //przypisanie label'om i paskom aktywnosci wartosci po wczytaniu
+                label_Level_Stat.Text = arthur.Level.ToString();
+                label_Energy_Stat.Text = arthur.Energy.ToString();
+                label_Life_Stat.Text = arthur.Life.ToString();
+                label_Mind_Stat.Text = arthur.Mind.ToString();
+                label_Money_Stat.Text = arthur.Money.ToString();
+                label_Aim_Stat.Text = arthur.Aim.ToString();
+                progressBar_Exp.Value = arthur.Experience;
+
+                //pokanani bohaterzy aktualizacja stanu gry
+                if (isMaryDead)
+                {
+                    buttonFightMary.Enabled = false;
+                    pictureBoxMaryCross.Visible = false;
+                }
+                if (isJoeDead)
+                {
+                    buttonJoeFight.Enabled = false;
+                    pictureBoxJoeCross.Visible = false;
+                }
+                if (isLukeDead)
+                {
+                    buttonFightLuke.Enabled = false;
+                    pictureBoxLukeCross.Visible = false;
+                }
+                if (arthur.IsHavingWarehouse)
+                {
+                    //jesli mamy magazyn to ustawiam poziom i lpensje a takze wczytuje poziom magazynu
+                    warehouse.CurrentBuildingLevel = int.Parse(lines[8]);
+                    warehouse.SetLevel();
+                    //wylaczam przycisk kupienia
+                    buttonBuyWarehouse.Enabled = false;
+                    buttonBuyWarehouse.Visible = false;
+                    buttonUpgradeWarehouse.Visible = true;
+                }
+                MessageBox.Show("The game has been loaded");
+
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message.ToString());
+            }
+        }
+
+        /// <summary>
+        /// załadowanie jednostek z pliku
+        /// </summary>
+        /// <param name="listToUpdate"></param>
+        private void LoadUnitsFromFile(List<Unit> listToUpdate)
+        {
+            if (listToUpdate == unitsNewport)
+            {
+                for(int i = 0; i < counterOfHorsesNewport; i++)
+                {
+                    //utworzenie nowego obiektu jezdzcy, dodanie do listy i aktualizacja
+                    unit = new Horseman();
+                    unitsNewport.Add(unit);
+                    //aktualizacjao ogolnego ataku i obrony
+                    overallDefendNewport += unit.GetDefending();
+                    overallAttackNewport += unit.GetAttacking();
+
+
+                }
+                for (int i = 0; i < counterOfShootersNewport; i++)
+                {
+                    //utworzenie nowego obiektu strzelca, dodanie do listy i aktualizacja
+                    unit = new Shooter();
+                    unitsNewport.Add(unit);
+                    //aktualizacjao ogolnego ataku i obrony
+                    overallDefendNewport += unit.GetDefending();
+                    overallAttackNewport += unit.GetAttacking();
+
+                }
+                //aktualizacja etykiet
+                labelNewportHorsesStat.Text = counterOfHorsesNewport.ToString();
+                labelNewportShootersStat.Text = counterOfShootersNewport.ToString();
+
+            }
+            else
+            {
+                for (int i = 0; i < counterOfHorsesOldtown; i++)
+                {
+                    //utworzenie nowego obiektu jezdzcy, dodanie do listy i aktualizacja
+                    unit = new Horseman();
+                    unitsOldtown.Add(unit);
+                    //aktualizacjao ogolnego ataku i obrony
+                    overallDefendOldtown += unit.GetDefending();
+                    overallAttackOldtown += unit.GetAttacking();
+
+
+                }
+                for (int i = 0; i < counterOfShootersOldtown; i++)
+                {
+                    //utworzenie nowego obiektu strzelca, dodanie do listy i aktualizacja
+                    unit = new Shooter();
+                    unitsOldtown.Add(unit);
+                    //aktualizacjao ogolnego ataku i obrony
+                    overallDefendOldtown += unit.GetDefending();
+                    overallAttackOldtown += unit.GetAttacking();
+                }
+
+                labelOldtownHorsesStat.Text = counterOfHorsesOldtown.ToString();
+                labelOldtownShootersStat.Text = counterOfShootersOldtown.ToString();
+            }
+
+
+        }
+       
+
+        /// <summary>
+        /// funkcja odpowiedzialna za prace w hotelu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonWorkHotel_Click(object sender, EventArgs e)
+        {
+            //rzutowanie na klase abstrakcyjna
+            work = new HotelWork(10);
+            hotel = (HotelWork)work;
+            //koszta pracy(energia aktywnosc)
+            valueEnergy = hotel.EnergyOfActivity();
+            valueExperience = hotel.ExperienceOfActivity();
+            if (arthur.Energy >= valueEnergy)
+            {
+                //przypisanie wartosci zmiennych
+                valueActivity = 100 / work.TimeOfActivity();
+                salary = work.GetSalaryPerHour();
+                valueEnergy = work.EnergyOfActivity() / work.TimeOfActivity();
+                //przypisanie praacy i blokada przyciskow
+                arthur.IsWorking = true;
+
+
+                BlockButtons();
+            }
+            else
+            {
+                //okienko
+                MessageBox.Show("You are too tired for it, you need at least " + valueEnergy + " energy");
+            }
+        }
+
+        /// <summary>
+        /// funkcja odpowiedzialna za obstawianie wyscigów konnych
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonBetOnHorses_Click(object sender, EventArgs e)
+        {
+            //przydział pieniedzy
+            moneyFromDialog = DialogWindow();
+
+            if (moneyFromDialog < 50)
+            {
+                MessageBox.Show("You should enter at least 50$.");
+
+            }
+            else if (moneyFromDialog > arthur.Money)
+            {
+                MessageBox.Show("You don't have that money!");
+            }
+            else
+            {
+                //rxzutowanie na klase abstrakcyjna
+                play = new StudOfHorses(75);
+                horses = (StudOfHorses)play;
+
+               
+                //jesli pseudo liczba mniejsza od 50 to starta pieniedzy, około 50% na przegranie
+                if (!play.Permutation())
+                {
+                    //redukcja pieniedzy
+                    arthur.Money -= moneyFromDialog;
+
+                    MessageBox.Show("Unfortunetely you lost " + moneyFromDialog);
+                }
+                else
+                {
+                    //inkrementacja pieniedzy
+                    arthur.Money += 4*moneyFromDialog;
+
+                    MessageBox.Show("Congratulations you won " + 4*moneyFromDialog);
+                }
+                //aktualzacja etykiety
+                label_Money_Stat.Text = (arthur.Money).ToString();
+
+            }
+        }
+
+        /// <summary>
+        /// funkcja która rekrutue daną jednostkę
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonRecruit_Click(object sender, EventArgs e)
+        {
+            //jesli zaznaczono jezdzce
+            if (radioButtonHorse.Checked == true)
+            {
+                
+                //utworzenie obiektu UNit, ktory bedzie jezdzca 
+                unit = new Horseman();
+                //warunek sprawdzajacy czy stac nas na wynajecie jednostki
+                if (arthur.Money >= unit.GetCostOfUnit())
+                {
+                    //dodanie do listy
+                    unitsOldtown.Add(unit);
+                    //aktualizacja etykiety
+                    UpdateOfUnits(unitsOldtown);
+                    //odjecie pieniedzy za nabycie jednostki i aktualizacja etykiety
+                    arthur.Money -= unit.GetCostOfUnit();
+                    label_Money_Stat.Text = arthur.Money.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("You don't have enaugh money for buy a horseman, you need at least " + unit.GetCostOfUnit());
+                }
+                    
+
+            }
+            else if(radioButtonShooter.Checked == true)
+            {
+                //utworzenie obiektu UNit, ktory bedzie jezdzca
+                unit = new Shooter();
+                //warunek sprawdzajacy czy stac nas na wynajecie jednostki
+                if (arthur.Money >= unit.GetCostOfUnit())
+                {
+                     
+                   //dodanie do listy
+                    unitsOldtown.Add(unit);
+                    //aktualizacja etykiety
+                    UpdateOfUnits(unitsOldtown);
+                    //odjecie pieniedzy za nabycie jednostki i aktualizacja etykiety
+                    arthur.Money -= unit.GetCostOfUnit();
+                    label_Money_Stat.Text = arthur.Money.ToString();
+                }
+                else
+                {
+                    MessageBox.Show("You don't have enaugh money for buy a horseman, you need at least " + unit.GetCostOfUnit());
+                }
+
+            }
+            else
+            {
+                MessageBox.Show("Radiobuttons aren't checked");
+            }
+
+            
+
+        }
+
+        /// <summary>
+        /// aktualizacja etykiet jendostek danego miasta
+        /// </summary>
+        /// <param name="listToUpdate"></param>
+        public void UpdateOfUnits(List<Unit> listToUpdate)
+        {
+            //przechowuje ostatni dodany element 
+            int index = listToUpdate.Count() - 1;
+            
+
+            
+            //jesli to Oldtown to licze jednostki dla Oldown
+            if (listToUpdate == unitsOldtown)
+            {
+                if (index >= 0)
+                {
+                    if (listToUpdate[index] is Horseman)
+                    {
+                        //zwiekszam liczbe jezdzcow jesli to był Horseman
+                        counterOfHorsesOldtown++;
+                        overallDefendOldtown += unit.GetDefending();
+                        overallAttackOldtown += unit.GetAttacking();
+                    }
+                    else if (listToUpdate[index] is Shooter)
+                    {
+                        //zwiekszam liczbe strzelcow jesli to był Shooter
+                        counterOfShootersOldtown++;
+                        overallDefendOldtown += unit.GetDefending();
+                        overallAttackOldtown += unit.GetAttacking();
+                    }
+                    //aktualizacja etykiet
+                    labelOldtownHorsesStat.Text = counterOfHorsesOldtown.ToString();
+                    labelOldtownShootersStat.Text = counterOfShootersOldtown.ToString();
+                }
+                else
+                {
+                    //aktualizacja etykiet
+                    labelOldtownHorsesStat.Text = counterOfHorsesOldtown.ToString();
+                    labelOldtownShootersStat.Text = counterOfShootersOldtown.ToString();
+                }
+            }
+            //robie to samo jesli to  miasto Newport(lista)
+            else
+            {
+                if (index >= 0)
+                {
+                    if (listToUpdate[index] is Horseman)
+                    {
+                        //dodanie wjednostki i aktualizacja ogolnego ataku i obrony
+
+                        counterOfHorsesNewport++;
+                        overallDefendNewport += unit.GetDefending();
+                        overallAttackNewport += unit.GetAttacking();
+
+                    }
+                    else if (listToUpdate[index] is Shooter)
+                    {
+                        //dodanie wjednostki i aktualizacja ogolnego ataku i obrony
+                        counterOfShootersNewport++;
+                        overallDefendNewport += unit.GetDefending();
+                        overallAttackNewport += unit.GetAttacking();
+                    }
+                    //aktualizacja etykiet
+                    labelNewportHorsesStat.Text = counterOfHorsesNewport.ToString();
+                    labelNewportShootersStat.Text = counterOfShootersNewport.ToString();
+
+                }
+                else
+                {
+
+                    //aktualizacja etykiet
+                    labelNewportHorsesStat.Text = counterOfHorsesNewport.ToString();
+                    labelNewportShootersStat.Text = counterOfShootersNewport.ToString();
+                }
+            }
+        }
+
         
+
+        /// <summary>
+        /// funkcja ktora aktualizuje jednostki Newport i dodaje pewną ilosc jak bohater osiagnie kolejny poziom
+        /// </summary>
+        private void AddUnitsOfNewport(int diffrenceOfUnits)
+        {
+           
+            //pierwszy raz dodaj 10 jezdzcow i i 10 strzelcow żeby było ciekawej dla rozgrywki
+           
+            if (diffrenceOfUnits > 0)
+            {
+               
+            }
+            else
+            {
+                //petla ktora dodaje  roznice pomiedzy wojskami  żeby było wyzwwanie budowania jednostek
+                for (int i= diffrenceOfUnits; i < 0; i++)
+                {
+                    
+                    //utworzenie nowego obiektu jezdzcy, dodanie do listy i aktualizacja, to samo ze strzelcem
+                    unit = new Horseman();
+                    unitsNewport.Add(unit);
+                    UpdateOfUnits(unitsNewport);
+                    unit = new Shooter();
+                    unitsNewport.Add(unit);
+                    UpdateOfUnits(unitsNewport);
+                }
+
+            }
+        }
+        /// <summary>
+        /// klikniecie przycisku attack zaczyna walke pomiedyz miastami
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonAttack_Click(object sender, EventArgs e)
+        {
+            //jesli zaznaczono jezdzce
+            if (radioButtonAttack.Checked == true)
+            {
+
+                AttackOnNewport();
+
+            }
+            else if (radioButtonPeace.Checked == true)
+            {
+                MessageBox.Show("You choose peace, so Oldtown and Newport wiil be in peacuful relation  until you increase your level");
+                buttonAttack.Enabled = false;
+
+            }
+            else
+            {
+                MessageBox.Show("Radiobuttons aren't checked");
+            }
+        }
+
+        /// <summary>
+        /// funkcja przeprowadza atak na Newport
+        /// </summary>
+        private void AttackOnNewport()
+        {
+            BlockButtons();
+            //pomocnicza do inicjalizacja progress bar'u
+            isAttacking = true;
+            if (overallAttackOldtown > overallDefendNewport)
+            {
+                //pieniadze za przegrana zalezą od poziomu 
+                int winningMoney = 2000;
+                MessageBox.Show("Congratulations you won, and Newport signed peace pact with Oldtown so you will get rich, you earned " + winningMoney * arthur.Level);
+                buttonAttack.Enabled = false;
+                //aktualizacja pieniedzy
+                arthur.Money += winningMoney * arthur.Level;
+                label_Money_Stat.Text = arthur.Money.ToString();
+                //redukcja kosztow
+                ReductionOfUnits(true);
+
+            }
+            else
+            {
+                MessageBox.Show("Unfotunetely you lost and half your units didn.t come back to Oldtown");
+                ReductionOfUnits(false);
+            }
+
+        }
+        /// <summary>
+        /// funkcja redukuje jednostki po przegranej lub przegranej zalezy od strony
+        /// </summary>
+        /// <param name="win"></param>
+        private void ReductionOfUnits(bool win)
+        {
+           
+            
+            if (win)
+            {
+                //zeruje wojska Newport
+                counterOfHorsesNewport = 0;
+                counterOfShootersNewport = 0;
+                unitsNewport.Clear();
+                UpdateOfUnits(unitsNewport);
+            }
+            else
+            {
+                //zeruje wojska Oldtown
+                counterOfHorsesOldtown = 0;
+                counterOfShootersOldtown = 0;
+                unitsOldtown.Clear();
+                UpdateOfUnits(unitsOldtown);
+            }
+        }
         /// <summary>
         /// funkcja inkrementuje zycie o zadana wartosc
         /// </summary>
         /// <param name="value"></param>
-        public void incrementLife(int value)
+        public void IncrementLife(int value)
         {
             //jesli spelnia warunek  to dekrementacja energii i przypisanie do etykiety
             if (arthur.Life <= 100 - value)

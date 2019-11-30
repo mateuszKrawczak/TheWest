@@ -6,32 +6,29 @@ using System.Threading.Tasks;
 
 namespace TheWest
 {
-    /// <summaryHome>
+    /// <summary>
     /// klasa Church dziedziczy po klasie abstrakcyjnej RestBuilding i interfejsie ICost
     /// </summary>
-    public class Home : RestBuilding, ICost
+    public class Church : RestBuilding, ICost
     {
-        //zmienne 
+        //zmienne przypisywane w konstruktorze
         private int cost;
         private int time;
         private int energy;
         private int experience;
-        Arthur arthur;
 
-        //konstruktor dziedziczacy z parametrem klasy Arthur
-        public Home(Arthur person,int e,int h)
+        //konstruktor klasy Church
+        public Church(int h, int e)
         {
-            //przypisanie wartosci
-            this.arthur = person;
+            //przypisanie wartosci zmiennym
             SetGivenEnergy(e);
             SetGivenHealth(h);
-            cost = 150;
-            time = 4;
-            energy = 20;
-            experience = 10;
-        }
-
-        //funkcje ktore zwracaja wartosci
+            cost = 150; 
+            time=2;
+            energy=0;
+            experience=10;
+    }
+        //gettery ktore zwracaja wartosci zmiennych
         public int CostOfActivity()
         {
             return cost;
@@ -52,18 +49,5 @@ namespace TheWest
         {
             return time;
         }
-
-
-
-        /// <summary>
-        /// funkcja odpowiedzialna za czytanie ksiazki, dodaje postaci punkty inteligencji
-        /// </summary>
-        public void ReadBook()
-        {
-            //inteligencja+=5 do statysk
-            arthur.UpgradeMind(5);
-         }
-
-        
     }
 }

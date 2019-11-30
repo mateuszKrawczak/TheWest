@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace TheWest
 {
-    //klasa Person odpowiada za atrybuty wszystkich czterech postaci w grze
-    public class Person
+    //abstrakcyjna klasa Person odpowiada za atrybuty wszystkich czterech postaci w grze
+    public abstract class Person
     {
         //zmienne
         protected string name;//ak klasa dziedziczaca to musze protected

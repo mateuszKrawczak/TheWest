@@ -11,17 +11,22 @@ namespace TheWest
     {
         //przypisanie zmiennej
         private int aim = 20;
+        
+       
+
+
+        Arthur arthur;
         //konstuktor z obiektem klasy Arthur
-        public Store(Arthur person): base(person)
+        public Store(Arthur person)
         {
             this.arthur = person;
-            this.CurrentBuildingLevel = 1;
-            this.CostUpgrade = 150;
-            this.AllCostForupgrade = this.CostUpgrade;
+            CurrentBuildingLevel = 1;
+            CostUpgrade = 150;
+
         }
 
         //podniesienie statystyki celowania,wywolywana podczas ulepszenia 
-        public void boostingAim()
+        public void BoostingAim()
         {
             //jesli <100 dodaje 20 a jak nie to przypisuje wartosc maksymalna 100
             if (arthur.Aim + aim <= 100)
@@ -32,6 +37,55 @@ namespace TheWest
             {
                 arthur.Aim = 100;
             }
+        }
+
+        /// <summary>
+        /// funkcja ustawia koszt ulepszenia w zaleznosci od poziomu
+        /// </summary>
+        public override void SetLevel()
+        {
+            switch (CurrentBuildingLevel)
+            {
+                case 1:
+                    CostUpgrade = 150;
+                    break;
+
+
+                case 2:
+                    CostUpgrade = 300;
+
+                    break;
+                case 3:
+                    CostUpgrade = 500;
+
+                    break;
+
+
+                case 4:
+                    CostUpgrade = 700;
+                    break;
+
+
+
+                case 5:
+                    CostUpgrade = 900;
+                    break;
+
+
+
+
+
+            }
+        }
+
+        /// <summary>
+        /// funkcja ktora nadpisuje funkcje abst. i zawiera ulepszenie budynku
+        /// </summary>
+        public override void UpgradeOfBuilding()
+        {
+            SetLevel();
+            arthur.Money -= CostUpgrade;
+            CurrentBuildingLevel++;
         }
     }
 }
